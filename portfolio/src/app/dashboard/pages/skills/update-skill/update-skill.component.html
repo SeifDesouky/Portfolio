@@ -1,0 +1,66 @@
+<div class="dashboard-grid">
+  <div
+    class="card from-left overall-info"
+    *ngFor="let category of skillsList"
+  >
+    <div class="card-header">
+      <h3>{{ category.category }}</h3>
+      <small>{{ category.skill.length }} Skills</small>
+    </div>
+
+    <div class="stat-item primary">
+      <div
+        class="stat-label"
+        *ngFor="let s of category.skill"
+      >
+        <img
+          [src]="s.img"
+          alt="{{ s.name }}"
+          width="20"
+          height="20"
+          style="margin-right:6px;vertical-align:middle;border-radius:4px;"
+        />
+        {{ s.name }}
+      </div>
+    </div>
+
+    <div class="card-actions">
+      <button (click)="openEditModal(category); $event.stopPropagation()" class="btn btn-edit">
+        <i class="fa-solid fa-pen"></i> Edit
+      </button>
+      <button (click)="softDeleteCategory(category._id); $event.stopPropagation()" class="btn btn-delete">
+        <i class="fa-solid fa-trash"></i> Delete
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="custom-modal-backdrop" *ngIf="isEditModalOpen && skillForm">
+  <div class="custom-modal" role="dialog" aria-modal="true">
+    <div class="modal-header">
+      <h3>Edit Skills Category</h3>
+      <button class="close-btn" (click)="closeEditModal()">×</button>
+    </div>
+
+    <form [formGroup]="skillForm" (ngSubmit)="onUpdate()">
+      <div class="form-group">
+        <label>Category Name</label>
+        <input type="text" formControlName="category" placeholder="Enter category" />
+      </div>
+
+      <div formArrayName="skill">
+        <div *ngFor="let sk of skillArray.controls; let i=index" [formGroupName]="i" class="form-group">
+          <label>Skill {{ i + 1 }}</label>
+          <input type="text" formControlName="name" placeholder="Skill name" />
+          <input type="text" formControlName="img" placeholder="Image URL" />
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button type="submit" class="btn-save">Save</button>
+        <button type="button" class="btn-cancel" (click)="closeEditModal()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

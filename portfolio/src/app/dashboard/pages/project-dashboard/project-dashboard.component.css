@@ -1,0 +1,74 @@
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 300px));
+  gap: 24px;
+  justify-content: center;
+  margin-top: 3em;
+  perspective: 1000px;
+}
+
+.card {
+  border-radius: 20px;
+  padding: 24px;
+  background: rgba(19, 19, 19, 0.8);
+  border: 1px solid rgba(0, 255, 238, 0.3);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 255, 238, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  animation: slideIn 0.8s ease forwards;
+}
+
+.spotlight {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.card-header h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #00ffee;
+}
+
+.stat-number {
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #00ffee;
+}
+
+.stat-label {
+  font-size: 1.2em;
+  color: #ccc;
+}
+
+/* دخول من الشمال واليمين */
+.from-left {
+  transform: translateX(-150%);
+  animation: fromLeft 0.8s ease forwards;
+}
+
+.from-right {
+  transform: translateX(150%);
+  animation: fromRight 0.8s ease forwards;
+}
+
+@keyframes fromLeft {
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes fromRight {
+  to {
+    transform: translateX(0);
+  }
+}
+

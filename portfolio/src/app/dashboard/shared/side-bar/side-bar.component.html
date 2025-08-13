@@ -1,0 +1,44 @@
+<aside class="sidebar">
+    <div class="sidebar-logo">
+      <h2>Admin Dashboard</h2>
+    </div>
+
+    <nav class="sidebar-nav">
+      <ul class="nav-menu">
+        <li *ngFor="let item of menuItems"
+            class="nav-item"
+            [class.active]="item.active"
+            (click)="onMenuClick(item)" [routerLink]="item.route">
+          <span class="material-icons">{{item.icon}}</span>
+          <span class="nav-text">{{item.name}}</span>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-section">
+      <h4 class="section-title">Integration</h4>
+      <ul class="integration-list">
+        <li *ngFor="let integration of integrations" class="integration-item">
+          <span class="material-icons">{{integration.icon}}</span>
+          <span>{{integration.name}}</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="sidebar-section">
+      <h4 class="section-title">Teams</h4>
+      <ul class="teams-list">
+        <li *ngFor="let team of teams" class="team-item">
+          <div class="team-avatar">{{team.charAt(0)}}</div>
+          <span>{{team}}</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="settings-item">
+        <span class="material-icons">settings</span>
+        <span>Setting</span>
+      </div>
+    </div>
+  </aside>

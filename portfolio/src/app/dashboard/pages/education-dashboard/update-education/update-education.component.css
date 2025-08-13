@@ -1,0 +1,279 @@
+/* شبكة عرض الكروت */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 300px));
+  gap: 24px;
+  justify-content: center;
+  margin-top: 3em;
+  perspective: 1000px;
+}
+
+/* شكل الكارد */
+.card {
+  border-radius: 20px;
+  padding: 20px;
+  background: rgba(19, 19, 19, 0.85);
+  border: 1px solid rgba(0, 255, 238, 0.3);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 255, 238, 0.15);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+/* تأثير الهوفـر */
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 255, 238, 0.3);
+}
+
+/* الهيدر */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 12px;
+}
+
+.card-header h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #00ffee;
+}
+
+.card-header small {
+  font-size: 14px;
+  color: #aaa;
+}
+
+/* وصف التعليم */
+.stat-item {
+  margin-bottom: 16px;
+}
+
+.stat-label {
+  font-size: 15px;
+  color: #ddd;
+  line-height: 1.5;
+}
+
+/* أزرار الأكشن */
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* زر عام */
+.btn {
+  flex: 1;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+/* زر Edit */
+.btn-edit {
+  background-color: rgba(0, 200, 255, 0.15);
+  color: #00d4ff;
+}
+
+.btn-edit:hover {
+  background-color: rgba(0, 200, 255, 0.3);
+  transform: scale(1.05);
+}
+
+/* زر Delete */
+.btn-delete {
+  background-color: rgba(255, 50, 100, 0.15);
+  color: #ff4f6d;
+}
+
+.btn-delete:hover {
+  background-color: rgba(255, 50, 100, 0.3);
+  transform: scale(1.05);
+}
+
+/* أنيميشن دخول من الشمال */
+.from-left {
+  transform: translateX(-150%);
+  animation: fromLeft 0.8s ease forwards;
+}
+
+@keyframes fromLeft {
+  to {
+    transform: translateX(0);
+  }
+}
+/* خلفية المودال */
+/* خلفية المودال */
+.custom-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* صندوق المودال */
+.custom-modal {
+  background: rgba(19, 19, 19, 0.95);
+  width: 500px;
+  max-width: 95%;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 255, 238, 0.15);
+  animation: fadeInUp 0.3s ease;
+  overflow: hidden;
+  border: 1px solid rgba(0, 255, 238, 0.3);
+  color: #fff;
+}
+
+/* الهيدر */
+.modal-header {
+  background: rgba(0, 255, 238, 0.1);
+  border-bottom: 1px solid rgba(0, 255, 238, 0.3);
+  color: #00ffee;
+  padding: 15px 20px;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h3 {
+  margin: 0;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  color: #00ffee;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* جسم المودال */
+form {
+  padding: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #00ffee;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 8px 10px;
+  background: rgba(25, 25, 30, 0.95);
+  color: #fff;
+  border: 1px solid rgba(0, 255, 238, 0.3);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #00ffee;
+  box-shadow: 0 0 5px #00ffee;
+  outline: none;
+}
+
+textarea{
+  height: 120px;
+}
+/* أزرار */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btn-save {
+  background: rgba(0, 255, 238, 0.15);
+  color: #00ffee;
+  border: 1px solid rgba(0, 255, 238, 0.3);
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.btn-save:hover {
+  background: rgba(0, 255, 238, 0.3);
+  transform: scale(1.05);
+}
+
+.btn-cancel {
+  background: rgba(255, 50, 100, 0.15);
+  color: #ff4f6d;
+  border: 1px solid rgba(255, 50, 100, 0.3);
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.btn-cancel:hover {
+  background: rgba(255, 50, 100, 0.3);
+  transform: scale(1.05);
+}
+
+/* أنيميشن */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.btn-primary {
+  background-color: #00ffee;
+  color: #131313;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #00e6d6;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(0, 255, 238, 0.3);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}

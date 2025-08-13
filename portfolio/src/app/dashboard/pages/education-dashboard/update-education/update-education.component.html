@@ -1,0 +1,68 @@
+<div class="dashboard-grid">
+  <div
+    class="card from-left overall-info"
+    *ngFor="let edu of educationList; let i = index"
+  >
+    <div class="card-header">
+      <h3>{{ edu.title }}</h3>
+      <small>{{ edu.date }}</small>
+    </div>
+    <div class="stat-item primary">
+      <div class="stat-label">{{ edu.description }}</div>
+    </div>
+    <div class="card-actions">
+      <button (click)="openEditModal(edu); $event.stopPropagation()" class="btn btn-edit">
+        <i class="fa-solid fa-pen"></i> Edit
+      </button>
+      <button (click)="softDeleteEducation(edu._id); $event.stopPropagation()" class="btn btn-delete">
+        <i class="fa-solid fa-trash"></i> Delete
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="custom-modal-backdrop" *ngIf="isEditModalOpen && eduForm">
+  <div class="custom-modal" role="dialog" aria-modal="true">
+    <div class="modal-header">
+      <h3>Edit Education</h3>
+      <button class="close-btn" (click)="closeEditModal()">×</button>
+    </div>
+
+    <form [formGroup]="eduForm" (ngSubmit)="onUpdate()">
+      <div class="form-group">
+        <label>Date</label>
+        <input type="text" formControlName="date" placeholder="YYYY" />
+        <div class="text-danger" *ngIf="eduForm.get('date')?.invalid && eduForm.get('date')?.touched">
+          <small *ngIf="eduForm.get('date')?.errors?.['required']">Date required</small>
+          <small *ngIf="eduForm.get('date')?.errors?.['pattern']">YYYY</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" formControlName="title" placeholder="Enter title" />
+        <div class="text-danger" *ngIf="eduForm.get('title')?.invalid && eduForm.get('title')?.touched">
+          <small *ngIf="eduForm.get('title')?.errors?.['minlength']">Min 3 chars</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Description</label>
+        <textarea formControlName="description" placeholder="Enter description"></textarea>
+        <div class="text-danger" *ngIf="eduForm.get('description')?.invalid && eduForm.get('description')?.touched">
+          <small *ngIf="eduForm.get('description')?.errors?.['minlength']">Min 5 chars</small>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button type="submit" class="btn-save">Save</button>
+        <button type="button" class="btn-cancel" (click)="closeEditModal()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="form-actions" routerLink="/dashboard/education-dashboard">
+    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i> Back</button>
+</div>

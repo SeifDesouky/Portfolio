@@ -1,0 +1,45 @@
+<section class="contact-section">
+  <div class="contact-inner">
+    <!-- Contact Form -->
+    <div class="contact-form">
+      <h2 class="title">Contact Me</h2>
+      <p class="subtitle">Got a project or question? Let's talk.</p>
+
+      <form (ngSubmit)="onSubmit()" [formGroup]="myForm" novalidate>
+        <label>
+          <input name="name" formControlName="name" placeholder="Name" [ngClass]="{'error-border': (myForm.get('name')?.invalid && myForm.get('name')?.touched)|| (myForm.get('name')?.invalid && isSubmitted)}"/>
+
+          <div *ngIf="(myForm.get('name')?.invalid && myForm.get('name')?.touched) || (myForm.get('name')?.invalid && isSubmitted)">
+              <span class="error-message" *ngIf="myForm.get('name')?.errors?.['required']">Name is required</span>
+            </div>
+        </label>
+
+        <label>
+          <input name="email" formControlName="email" placeholder="Email" [ngClass]="{'error-border': (myForm.get('email')?.invalid && myForm.get('email')?.touched)|| (myForm.get('email')?.invalid && isSubmitted)}"/>
+          <div *ngIf="(myForm.get('email')?.invalid && myForm.get('email')?.touched) || (myForm.get('email')?.invalid && isSubmitted)">
+              <span class="error-message" *ngIf="myForm.get('email')?.errors?.['required']">Email is required</span>
+              <span class="error-message" *ngIf="myForm.get('email')?.errors?.['pattern']">Invalid Email</span>
+            </div>
+        </label>
+
+        <label>
+          <textarea name="message" formControlName="msg" rows="5" placeholder="Message" [ngClass]="{'error-border': (myForm.get('msg')?.invalid && myForm.get('msg')?.touched)|| (myForm.get('msg')?.invalid && isSubmitted)}"></textarea>
+
+          <div *ngIf="(myForm.get('msg')?.invalid && myForm.get('msg')?.touched) || (myForm.get('msg')?.invalid && isSubmitted)">
+              <span class="error-message" *ngIf="myForm.get('msg')?.errors?.['required']">Message is required</span>
+
+            </div>
+        </label>
+
+        <div class="actions">
+          <button class="btn btn-primary"> Send</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- 3D Canvas -->
+    <div class="contact-3d">
+      <canvas #threeCanvas></canvas>
+    </div>
+  </div>
+</section>

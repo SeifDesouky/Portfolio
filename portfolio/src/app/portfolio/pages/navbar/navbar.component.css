@@ -1,0 +1,42 @@
+/* :root{
+  --bg-color:#080808;
+  --second-bg-color:#131313;
+  --main-color:#00ffee;
+
+} */
+.logo{
+color: #00ffee;
+  text-shadow: 0 0 40px #00ffee;
+}
+.bg{
+  background-color: #131313;
+}
+.nav-link {
+  color: white;
+  position: relative;
+  text-decoration: none;
+}
+
+.nav-link span {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background-color: #00ffee;
+  transition: width 0.3s ease-in-out;
+}
+.nav-link:hover{
+  color: #00ffee;
+}
+.nav-link:hover span {
+  width: 100%;
+}
+.active1 {
+  color: #00ffee;
+  position: relative;
+}
+.active1 span {
+  width: 100% !important;
+  background-color: #00ffee;
+}

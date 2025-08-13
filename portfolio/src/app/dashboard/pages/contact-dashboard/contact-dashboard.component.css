@@ -1,0 +1,106 @@
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 300px));
+  gap: 24px;
+  justify-content: center;
+  margin-top: 3em;
+  perspective: 1000px;
+}
+
+.card {
+  border-radius: 20px;
+  padding: 20px;
+  background: rgba(19, 19, 19, 0.85);
+  border: 1px solid rgba(0, 255, 238, 0.3);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 255, 238, 0.15);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 255, 238, 0.3);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 12px;
+}
+
+.card-header h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #00ffee;
+}
+
+.card-header small {
+  font-size: 14px;
+  color: #aaa;
+}
+
+.stat-item {
+  margin-bottom: 2em;
+}
+
+.stat-label {
+  font-size: 15px;
+  color: #ddd;
+  line-height: 1.5;
+}
+
+/* أزرار الأكشن */
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.btn {
+  flex: 1;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.btn-edit {
+  background-color: rgba(0, 200, 255, 0.15);
+  color: #00d4ff;
+}
+
+.btn-edit:hover {
+  background-color: rgba(0, 200, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.btn-delete {
+  background-color: rgba(255, 50, 100, 0.15);
+  color: #ff4f6d;
+}
+
+.btn-delete:hover {
+  background-color: rgba(255, 50, 100, 0.3);
+  transform: scale(1.05);
+}
+
+/* أنيميشن دخول الكارد */
+.from-left {
+  transform: translateX(-150%);
+  animation: fromLeft 0.8s ease forwards;
+}
+
+@keyframes fromLeft {
+  to { transform: translateX(0); }
+}

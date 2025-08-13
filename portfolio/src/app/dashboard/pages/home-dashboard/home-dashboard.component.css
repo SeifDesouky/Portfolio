@@ -1,0 +1,549 @@
+.home-dashboard {
+  background-color: #131313;
+  min-height: 100vh;
+  padding-top:2rem ;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .home-dashboard {
+    padding: 16px;
+  }
+}
+.settings-card {
+  background-color: #1a1a1a;
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 100%;
+  margin: 0 auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  border: 1px solid #00ffee;
+}
+
+@media (max-width: 768px) {
+  .settings-card {
+    padding: 24px;
+    border-radius: 8px;
+  }
+}
+
+
+.page-header {
+  margin-bottom: 32px;
+}
+
+.page-header h1 {
+  font-size: 28px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  color: #ffffff;
+}
+
+.page-header p {
+  color: #b3b3b3;
+  margin: 0;
+  font-size: 14px;
+}
+
+/* ================================
+   تخطيط النموذج (Form Layout)
+   ================================ */
+.form-container {
+  display: grid;
+  gap: 24px;
+}
+
+/* تخطيط الشاشات الكبيرة - عمود جانبي للصورة */
+@media (min-width: 1024px) {
+  .form-container {
+    grid-template-columns: 1fr 200px;
+    gap: 32px;
+  }
+
+  .form-fields {
+    grid-column: 1;
+  }
+
+  .profile-section {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+}
+
+/* ================================
+   حقول النموذج (Form Fields)
+   ================================ */
+.form-group {
+  margin-bottom: 24px;
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+.form-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+/* الحقول المطلوبة */
+.form-label.required::after {
+  content: '*';
+  color: #ff4757;
+  margin-left: 4px;
+}
+
+.form-input {
+  width: 100%;
+  height: 44px;
+  padding: 0 12px;
+  background-color: #131313;
+  border: 1px solid #333333;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.form-input::placeholder {
+  color: #808080;
+}
+
+/* حالة التركيز */
+.form-input:focus {
+  border-color: #00ffee;
+  box-shadow: 0 0 0 2px rgba(0, 255, 238, 0.2);
+  background-color: #171717;
+}
+
+/* حالة التحويم */
+.form-input:hover:not(:focus) {
+  border-color: #4d4d4d;
+}
+
+/* حالة الخطأ */
+.form-input.error {
+  border-color: #ff4757;
+  box-shadow: 0 0 0 2px rgba(255, 71, 87, 0.2);
+}
+
+/* النصوص الطويلة */
+.form-input.textarea {
+  height: auto;
+  min-height: 100px;
+  padding: 12px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+/* رسائل الأخطاء */
+.error-message {
+  display: block;
+  color: #ff4757;
+  font-size: 12px;
+  margin-top: 4px;
+  min-height: 16px;
+}
+
+.error-message:empty {
+  display: none;
+}
+
+/* ================================
+   أقسام إضافية (Additional Sections)
+   ================================ */
+.section-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 32px 0 16px 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #333333;
+}
+
+.section-title:first-child {
+  margin-top: 0;
+}
+
+.social-links-section {
+  margin: 32px 0;
+}
+
+.social-links-section .form-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.social-links-section .form-label i {
+  width: 20px;
+  color: #00ffee;
+}
+
+.help-text {
+  display: block;
+  color: #808080;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* ================================
+   رفع الملفات (File Upload)
+   ================================ */
+.file-upload-group .upload-area {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px;
+  background-color: #131313;
+  border: 1px dashed #333333;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  min-height: 44px;
+  box-sizing: border-box;
+}
+
+.file-upload-group .upload-area:hover {
+  border-color: #00ffee;
+  background-color: rgba(0, 255, 238, 0.05);
+}
+
+.upload-icon {
+  color: #00ffee;
+  font-size: 18px;
+}
+
+.upload-text {
+  flex: 1;
+  color: #b3b3b3;
+  font-size: 14px;
+}
+
+.upload-text.has-file {
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.upload-button {
+  background-color: #00ffee;
+  color: #131313;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.upload-button:hover {
+  background-color: #00e6d6;
+}
+
+.hidden-input {
+  display: none;
+}
+
+/* ================================
+   قسم الصورة الشخصية (Profile Section)
+   ================================ */
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+@media (max-width: 1024px) {
+  .profile-section {
+    margin-top: 24px;
+  }
+}
+
+.profile-upload {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-preview {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #131313;
+  border: 3px solid #333333;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* صورة افتراضية */
+.profile-preview.placeholder {
+  color: #808080;
+  font-size: 48px;
+}
+
+.profile-preview.placeholder::before {
+  content: '👤';
+}
+
+.profile-preview:hover {
+  border-color: #00ffee;
+  transform: scale(1.05);
+}
+
+.upload-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(19, 19, 19, 0.8);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+}
+
+.upload-overlay .upload-icon {
+  color: #00ffee;
+  font-size: 24px;
+}
+
+.upload-overlay:hover,
+.profile-upload:hover .upload-overlay {
+  opacity: 1;
+}
+
+/* ================================
+   الأزرار (Buttons)
+   ================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  outline: none;
+}
+
+.btn:focus-visible {
+  box-shadow: 0 0 0 2px rgba(0, 255, 238, 0.5);
+}
+
+.btn-primary {
+  background-color: #00ffee;
+  color: #131313;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #00e6d6;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(0, 255, 238, 0.3);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: #b3b3b3;
+  border: 1px solid #333333;
+}
+
+.btn-secondary:hover {
+  background-color: #2a2a2a;
+  color: #ffffff;
+  border-color: #4d4d4d;
+}
+
+/* ================================
+   التحميل والحالات (Loading & States)
+   ================================ */
+.loading-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* إشارة التحديث للـ aria-live */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.form-actions {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #333333;
+}
+
+@media (max-width: 768px) {
+  .form-actions {
+    position: sticky;
+    bottom: 0;
+    background-color: #1a1a1a;
+    padding: 24px;
+    margin: 24px -24px -24px;
+    border-top: 1px solid #333333;
+  }
+}
+
+/* ================================
+   الاستجابة للموبايل (Mobile Responsive)
+   ================================ */
+@media (max-width: 768px) {
+  .form-container {
+    display: block;
+  }
+
+  .profile-section {
+    order: -1;
+    margin-bottom: 24px;
+    text-align: center;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 16px;
+  }
+
+  .upload-area {
+    flex-direction: column;
+    text-align: center;
+    padding: 24px;
+  }
+
+  .upload-area .upload-text {
+    margin: 8px 0;
+  }
+}
+
+/* ================================
+   إمكانية الوصول (Accessibility)
+   ================================ */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* تحسين التركيز للوحة المفاتيح */
+.form-input:focus,
+.btn:focus,
+.upload-area:focus-within,
+.profile-preview:focus {
+  outline: 2px solid #00ffee;
+  outline-offset: 2px;
+}
+
+/* ضمان التباين الكافي */
+@media (prefers-contrast: high) {
+  .form-input {
+    border-width: 2px;
+  }
+
+  .btn-primary {
+    border: 2px solid #131313;
+  }
+
+  .section-title {
+    border-bottom-width: 2px;
+  }
+}
+
+/* ================================
+   تحسينات إضافية
+   ================================ */
+.settings-form {
+  width: 100%;
+}
+
+/* تحسين عرض الأيقونات في الـ labels */
+.form-label i {
+  margin-left: 4px;
+}
+
+/* تحسين المسافات في حالة الموبايل */
+@media (max-width: 768px) {
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .section-title {
+    margin: 24px 0 12px 0;
+    font-size: 15px;
+  }
+}
+
+.form-layout {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.form-fields {
+  flex: 1;
+}
+
+.profile-preview-container {
+  flex: 0 0 250px;
+  text-align: center;
+
+  .profile-preview-img {
+    width: 100%;
+    border-radius: 50%;
+    border: 2px solid #00bbff;
+    object-fit: cover;
+  }
+
+  input[type="file"] {
+    margin-top: 10px;
+    display: block;
+  }
+}

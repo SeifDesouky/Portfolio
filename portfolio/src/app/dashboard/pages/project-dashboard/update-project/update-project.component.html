@@ -1,0 +1,84 @@
+<div class="dashboard-grid">
+  <div class="card from-left overall-info" *ngFor="let p of projectsList">
+    <img class="project-thumbnail" [src]="'http://localhost:3000/projectImg/' + p.projectImg" alt="{{ p.title }}" />
+
+    <div class="card-header">
+      <h3>{{ p.title }}</h3>
+      <small>{{ p.technologies.length }} Tech</small>
+    </div>
+
+    <p class="project-description">{{ p.description }}</p>
+
+    <div class="tech-list">
+      <span class="tech-item" *ngFor="let tech of p.technologies">{{ tech }}</span>
+    </div>
+
+    <div class="project-links" *ngIf="p.viewProject || p.openProject">
+      <a *ngIf="p.viewProject" [href]="p.viewProject" target="_blank" class="view">View</a>
+      <a *ngIf="p.openProject" [href]="p.openProject" target="_blank" class="open">Open</a>
+    </div>
+
+    <div class="card-actions">
+      <button (click)="openEditModal(p)" class="btn btn-edit">
+        <i class="fa-solid fa-pen"></i> Edit
+      </button>
+      <button (click)="deleteProject(p._id)" class="btn btn-delete">
+        <i class="fa-solid fa-trash"></i> Delete
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- المودال -->
+<div class="custom-modal-backdrop" *ngIf="isEditModalOpen && projectForm">
+  <div class="custom-modal" role="dialog" aria-modal="true">
+    <!-- الهيدر -->
+    <div class="modal-header">
+      <h3>Edit Project</h3>
+      <button class="close-btn" (click)="closeEditModal()">×</button>
+    </div>
+
+    <!-- الفورم -->
+    <form [formGroup]="projectForm" (ngSubmit)="onUpdate()">
+      <div class="form-group">
+        <label>Number</label>
+        <input type="number" formControlName="number" placeholder="Enter project number">
+      </div>
+
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" formControlName="title" placeholder="Enter project title">
+      </div>
+
+      <div class="form-group">
+        <label>Description</label>
+        <textarea formControlName="description" placeholder="Enter project description"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Technologies</label>
+        <div formArrayName="technologies">
+          <div *ngFor="let tech of technologiesArray.controls; let i=index" class="form-group">
+            <input [formControlName]="i" placeholder="Technology name">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>View Project Link</label>
+        <input type="text" formControlName="viewProject" placeholder="Enter view link">
+      </div>
+
+      <div class="form-group">
+        <label>Open Project Link</label>
+        <input type="text" formControlName="openProject" placeholder="Enter open link">
+      </div>
+
+      <div class="modal-actions">
+        <button type="submit" class="btn-save">Save</button>
+        <button type="button" class="btn-cancel" (click)="closeEditModal()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

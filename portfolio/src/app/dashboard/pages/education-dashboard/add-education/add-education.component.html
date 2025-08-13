@@ -1,0 +1,56 @@
+<div class="home-dashboard">
+  <div class="settings-card">
+    <header class="page-header">
+      <h1>Education Dashboard</h1>
+    </header>
+
+    <form [formGroup]="eduForm" (ngSubmit)="onSubmit()" class="settings-form" novalidate>
+      <div class="form-layout">
+
+        <div class="form-fields">
+          <div class="form-group">
+            <label for="title" class="form-label required">Date</label>
+            <input type="text" id="date" formControlName="date" class="form-input" [ngClass]="{'error-border': (eduForm.get('description')?.invalid && eduForm.get('description')?.touched)|| (eduForm.get('description')?.invalid && isSubmitted)}"/>
+            <div *ngIf="(eduForm.get('description')?.invalid && eduForm.get('description')?.touched) || (eduForm.get('description')?.invalid && isSubmitted)">
+
+              <span class="error-message" *ngIf="eduForm.get('date')?.errors?.['required']">date is required</span>
+              <span class="error-message" *ngIf="eduForm.get('date')?.errors?.['pattern']">Enter a valid year</span>
+
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="linkedin" class="form-label required">Title </label>
+            <input type="text" id="title" formControlName="title" class="form-input" [ngClass]="{'error-border': (eduForm.get('description')?.invalid && eduForm.get('description')?.touched)|| (eduForm.get('description')?.invalid && isSubmitted)}"/>
+             <div *ngIf="(eduForm.get('description')?.invalid && eduForm.get('description')?.touched) || (eduForm.get('description')?.invalid && isSubmitted)">
+              <span class="error-message" *ngIf="eduForm.get('title')?.errors?.['required']">Title is required</span>
+              <span class="error-message" *ngIf="eduForm.get('title')?.errors?.['minlength']">Title length should be more than 3 chars </span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="description" class="form-label required">Description</label>
+            <textarea id="description" formControlName="description" class="form-input textarea" rows="4" [ngClass]="{'error-border': (eduForm.get('description')?.invalid && eduForm.get('description')?.touched)|| (eduForm.get('description')?.invalid && isSubmitted)}"></textarea>
+            <div *ngIf="(eduForm.get('description')?.invalid && eduForm.get('description')?.touched) || (eduForm.get('description')?.invalid && isSubmitted)">
+              <span class="error-message" *ngIf="eduForm.get('description')?.errors?.['required']">Description is required</span>
+              <span class="error-message" *ngIf="eduForm.get('description')?.errors?.['minlength']">Description length should be more than 5 chars </span>
+            </div>
+          </div>
+
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-save"></i> Save Changes
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<div class="form-actions" routerLink="/dashboard/education-dashboard">
+    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i> Back</button>
+</div>
