@@ -7,7 +7,11 @@ const ProjectSchema = new mongoose.Schema({
     technologies: [String],
     projectImg: String,
     viewProject: String,
-    openProject:String
+    openProject: String,
+    isDeleted: {
+        type: Boolean,
+        default:false
+    }
 }) 
 
 module.exports = new mongoose.model('Project', ProjectSchema);

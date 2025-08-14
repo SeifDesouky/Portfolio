@@ -9,7 +9,6 @@
       <div class="form-layout">
         <div class="form-fields">
 
-          <!-- Number -->
           <div class="form-group">
             <label class="form-label required">Project Number</label>
             <input type="text" formControlName="number" class="form-input"
@@ -17,21 +16,18 @@
               placeholder="e.g. 01">
           </div>
 
-          <!-- Title -->
           <div class="form-group">
             <label class="form-label required">Title</label>
             <input type="text" formControlName="title" class="form-input"
               placeholder="e.g. Portfolio Website">
           </div>
 
-          <!-- Description -->
           <div class="form-group">
             <label class="form-label">Description</label>
             <textarea formControlName="description" class="form-input textarea"
               placeholder="Project description..."></textarea>
           </div>
 
-          <!-- Technologies -->
           <div formArrayName="technologies">
             <div *ngFor="let tech of technologies.controls; let i = index" class="skill-item" [formGroupName]="i">
               <div class="form-group">
@@ -45,25 +41,21 @@
           </div>
           <button type="button" class="btn btn-secondary" (click)="addTechnology()">+ Add Technology</button>
 
-          <!-- Project Image -->
           <div class="form-group">
             <label class="form-label required">Project Image</label>
             <input type="file" (change)="onFileSelected($event)" class="form-input">
           </div>
 
-          <!-- View Project -->
           <div class="form-group">
             <label class="form-label">View Project URL</label>
             <input type="text" formControlName="viewProject" class="form-input" placeholder="e.g. https://...">
           </div>
 
-          <!-- Open Project -->
           <div class="form-group">
             <label class="form-label">Open Project URL</label>
             <input type="text" formControlName="openProject" class="form-input" placeholder="e.g. https://...">
           </div>
 
-          <!-- Submit -->
           <div class="form-actions">
             <button type="submit" class="btn btn-primary">
               <i class="fas fa-save"></i> Save Project

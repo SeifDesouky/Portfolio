@@ -95,7 +95,6 @@
   transform: scale(1.05);
 }
 
-/* أنيميشن دخول الكارد */
 .from-left {
   transform: translateX(-150%);
   animation: fromLeft 0.8s ease forwards;

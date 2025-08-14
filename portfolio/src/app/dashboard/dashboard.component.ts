@@ -36,55 +36,6 @@ export class DashboardComponent {
     { name: 'Document', icon: 'description', active: false }
   ];
 
-  // Integration options
-  integrations = [
-    { name: 'Slack', icon: 'slack' },
-    { name: 'Discord', icon: 'discord' },
-    { name: 'Add Plugin', icon: 'add_circle_outline' }
-  ];
-
-  // Teams
-  teams = ['Seq', 'Marketing'];
-
-
-  // Tasks in process
-  tasksInProcess: Task[] = [
-    { id: 1, title: 'Meet HR for Project', time: 'Tonight', completed: false },
-    { id: 2, title: 'Boss Appointment', time: 'Next morning', completed: false }
-  ];
-
-  // Month goals
-  monthGoals: Goal[] = [
-    { id: 1, title: 'HTML', completed: 1, total: 4 },
-    { id: 2, title: 'CSS', completed: 3, total: 4 },
-    { id: 3, title: 'Javascript', completed: 2, total: 3 },
-    { id: 4, title: 'Boostrap', completed: 1, total: 2 },
-    { id: 4, title: 'Angular', completed: 1, total: 2 },
-    { id: 4, title: 'Node.js', completed: 1, total: 2 },
-    { id: 4, title: 'express.js', completed: 1, total: 2 },
-    { id: 4, title: 'mongoDB', completed: 1, total: 2 },
-  ];
-
-  // Last projects
-  lastProjects: Project[] = [
-    { id: 1, name: 'New Schedule', status: 'In Progress', progress: 75, color: '#00ffee' },
-    { id: 2, name: 'Anime UI design', status: 'Completed', progress: 100, color: '#4ade80' },
-    { id: 3, name: 'Creative UI design', status: 'On Hold', progress: 45, color: '#f59e0b' }
-  ];
-
-  // Overall stats
-  stats = {
-    tasksDone: 43,
-    projectsStopped: 2,
-    totalProjects: 32,
-    inProgress: 2,
-    completed: 25
-  };
-
-  // Month progress
-  monthProgress = 30;
-  monthIndicator = 120;
-
   projectCount: any
   projects: any[]=[]
   skills: any = []
@@ -110,32 +61,14 @@ export class DashboardComponent {
       this.skills=[... new Set(this.skills)]
     })
   }
-  // Menu item click handler
   onMenuClick(item: any): void {
     this.menuItems.forEach(menuItem => menuItem.active = false);
     item.active = true;
   }
 
-  // Task menu actions
-  onTaskAction(taskId: number, action: string): void {
-    console.log(`Task ${taskId}: ${action}`);
-    // Implement task actions here
-  }
-
-  // Create button click
   onCreate(): void {
     console.log('Create button clicked');
-    // Implement create functionality
   }
 
-  // Download report
-  onDownloadReport(): void {
-    console.log('Download report clicked');
-    // Implement download functionality
-  }
 
-  // Get progress percentage for goals
-  getGoalProgress(goal: Goal): number {
-    return (goal.completed / goal.total) * 100;
-  }
 }

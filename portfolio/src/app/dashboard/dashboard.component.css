@@ -25,7 +25,7 @@
   min-height: 100vh;
   background-color: #131313;
   color: white;
-  
+
 }
 
 
@@ -298,7 +298,6 @@
           font-size: 15px;
           font-weight: 500;
           color: var(--text-primary);
-          /* margin-bottom: 50px; */
         }
 
         .project-status {

@@ -49,7 +49,6 @@
   color: #ccc;
 }
 
-/* دخول من الشمال واليمين */
 .from-left {
   transform: translateX(-150%);
   animation: fromLeft 0.8s ease forwards;

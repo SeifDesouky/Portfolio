@@ -52,11 +52,16 @@ const updateProject = async (req, res) => {
 
 const deleteProject = async (req, res) => {
     try {
-        await Project.findByIdAndDelete(req.params.id);
-        res.status(200).json({ message: "Project deleted" });
+        await Project.findByIdAndUpdate(
+            req.params.id,
+            { isDeleted: true },
+            { new: true }
+        );
+        res.status(200).json({ message: "Project soft deleted" });
     } catch (err) {
         res.status(500).json({ message: "Something went wrong" });
     }
 };
+
 
 module.exports = { addProject, getProject, updateProject, deleteProject };

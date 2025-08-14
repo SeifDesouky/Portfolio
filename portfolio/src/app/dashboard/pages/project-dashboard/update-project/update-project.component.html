@@ -30,17 +30,14 @@
 </div>
 
 
-<!-- المودال -->
 <div class="custom-modal-backdrop" *ngIf="isEditModalOpen && projectForm">
   <div class="custom-modal" role="dialog" aria-modal="true">
-    <!-- الهيدر -->
     <div class="modal-header">
       <h3>Edit Project</h3>
       <button class="close-btn" (click)="closeEditModal()">×</button>
     </div>
 
-    <!-- الفورم -->
-    <form [formGroup]="projectForm" (ngSubmit)="onUpdate()">
+    @if(projectForm){<form [formGroup]="projectForm" (ngSubmit)="onUpdate()">
       <div class="form-group">
         <label>Number</label>
         <input type="number" formControlName="number" placeholder="Enter project number">
@@ -79,6 +76,6 @@
         <button type="submit" class="btn-save">Save</button>
         <button type="button" class="btn-cancel" (click)="closeEditModal()">Cancel</button>
       </div>
-    </form>
+    </form>}
   </div>
 </div>

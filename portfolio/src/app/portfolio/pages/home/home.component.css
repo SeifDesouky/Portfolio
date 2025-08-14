@@ -139,29 +139,11 @@ p{
     width: calc(100% + 8px);
   }
 }
-/* .img{
-  border-radius: 50%;
-}
-.img img{
-  width: 32vw;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: 0.4s ease-in-out;
-  border: 1px solid #00ffee;
-}
-.img img:hover{
-  box-shadow: 0 0 25px #00ffee,
-  0 0 50px #00ffee,
-  0 0 100px #00ffee;
-  transition: 0.4s ease-in-out;
-} */
 
 .img {
   position: relative;
   width: fit-content;
   border-radius: 50%;
-  /* margin: auto; */
-
 }
 
 .img::before {

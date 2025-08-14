@@ -49,16 +49,16 @@ export class UpdateProjectComponent {
 
   onUpdate() {
     if (this.projectForm.invalid) return;
-    // this.global.updateProject(this.projectForm.value, this.selectedId).subscribe({
-    //   next: (res: any) => {
-    //     this.toaster.success(res.message);
-    //     this.isEditModalOpen = false;
-    //     this.loadProjects();
-    //   },
-    //   error: () => {
-    //     this.toaster.error('Something went wrong');
-    //   }
-    // });
+    this.global.updateProject(this.projectForm.value, this.selectedId).subscribe({
+      next: (res: any) => {
+        this.toaster.success(res.message);
+        this.isEditModalOpen = false;
+        this.loadProjects();
+      },
+      error: () => {
+        this.toaster.error('Something went wrong');
+      }
+    });
   }
 
   closeEditModal() {
@@ -66,14 +66,14 @@ export class UpdateProjectComponent {
   }
 
   deleteProject(id: string) {
-    // this.global.deleteProject(id).subscribe({
-    //   next: () => {
-    //     this.toaster.success('Project deleted');
-    //     this.projectsList = this.projectsList.filter(p => p._id !== id);
-    //   },
-    //   error: () => {
-    //     this.toaster.error('Error deleting project');
-    //   }
-    // });
+    this.global.deleteProject(id).subscribe({
+      next: () => {
+        this.toaster.success('Project deleted');
+        this.projectsList = this.projectsList.filter(p => p._id !== id);
+      },
+      error: () => {
+        this.toaster.error('Error deleting project');
+      }
+    });
   }
 }

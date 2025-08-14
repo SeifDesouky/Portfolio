@@ -12,7 +12,6 @@ export class HomeComponent {
   constructor(public global: GlobalService) {}
   ngOnInit() {
     this.global.getHome().subscribe(res => {
-      // console.log(res.data[0]);
       this.homeContent = res.data[0];
       console.log(this.homeContent);
     });

@@ -46,15 +46,12 @@
   font-size: 14px;
 }
 
-/* ================================
-   تخطيط النموذج (Form Layout)
-   ================================ */
+
 .form-container {
   display: grid;
   gap: 24px;
 }
 
-/* تخطيط الشاشات الكبيرة - عمود جانبي للصورة */
 @media (min-width: 1024px) {
   .form-container {
     grid-template-columns: 1fr 200px;
@@ -71,9 +68,7 @@
   }
 }
 
-/* ================================
-   حقول النموذج (Form Fields)
-   ================================ */
+
 .form-group {
   margin-bottom: 24px;
 }
@@ -90,7 +85,6 @@
   margin-bottom: 8px;
 }
 
-/* الحقول المطلوبة */
 .form-label.required::after {
   content: '*';
   color: #ff4757;
@@ -115,25 +109,21 @@
   color: #808080;
 }
 
-/* حالة التركيز */
 .form-input:focus {
   border-color: #00ffee;
   box-shadow: 0 0 0 2px rgba(0, 255, 238, 0.2);
   background-color: #171717;
 }
 
-/* حالة التحويم */
 .form-input:hover:not(:focus) {
   border-color: #4d4d4d;
 }
 
-/* حالة الخطأ */
 .form-input.error {
   border-color: #ff4757;
   box-shadow: 0 0 0 2px rgba(255, 71, 87, 0.2);
 }
 
-/* النصوص الطويلة */
 .form-input.textarea {
   height: auto;
   min-height: 100px;
@@ -142,7 +132,6 @@
   font-family: inherit;
 }
 
-/* رسائل الأخطاء */
 .error-message {
   display: block;
   color: #ff4757;
@@ -155,9 +144,7 @@
   display: none;
 }
 
-/* ================================
-   أقسام إضافية (Additional Sections)
-   ================================ */
+
 .section-title {
   font-size: 16px;
   font-weight: 600;
@@ -193,9 +180,7 @@
   margin-top: 4px;
 }
 
-/* ================================
-   رفع الملفات (File Upload)
-   ================================ */
+
 .file-upload-group .upload-area {
   display: flex;
   align-items: center;
@@ -251,9 +236,7 @@
   display: none;
 }
 
-/* ================================
-   قسم الصورة الشخصية (Profile Section)
-   ================================ */
+
 .profile-section {
   display: flex;
   flex-direction: column;
@@ -286,7 +269,6 @@
   justify-content: center;
 }
 
-/* صورة افتراضية */
 .profile-preview.placeholder {
   color: #808080;
   font-size: 48px;
@@ -327,9 +309,7 @@
   opacity: 1;
 }
 
-/* ================================
-   الأزرار (Buttons)
-   ================================ */
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -384,9 +364,6 @@
   border-color: #4d4d4d;
 }
 
-/* ================================
-   التحميل والحالات (Loading & States)
-   ================================ */
 .loading-spinner {
   display: inline-block;
   width: 16px;
@@ -402,7 +379,6 @@
   100% { transform: rotate(360deg); }
 }
 
-/* إشارة التحديث للـ aria-live */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -432,9 +408,7 @@
   }
 }
 
-/* ================================
-   الاستجابة للموبايل (Mobile Responsive)
-   ================================ */
+
 @media (max-width: 768px) {
   .form-container {
     display: block;
@@ -462,9 +436,6 @@
   }
 }
 
-/* ================================
-   إمكانية الوصول (Accessibility)
-   ================================ */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
@@ -473,7 +444,6 @@
   }
 }
 
-/* تحسين التركيز للوحة المفاتيح */
 .form-input:focus,
 .btn:focus,
 .upload-area:focus-within,
@@ -482,7 +452,6 @@
   outline-offset: 2px;
 }
 
-/* ضمان التباين الكافي */
 @media (prefers-contrast: high) {
   .form-input {
     border-width: 2px;
@@ -497,19 +466,14 @@
   }
 }
 
-/* ================================
-   تحسينات إضافية
-   ================================ */
 .settings-form {
   width: 100%;
 }
 
-/* تحسين عرض الأيقونات في الـ labels */
 .form-label i {
   margin-left: 4px;
 }
 
-/* تحسين المسافات في حالة الموبايل */
 @media (max-width: 768px) {
   .form-group {
     margin-bottom: 20px;

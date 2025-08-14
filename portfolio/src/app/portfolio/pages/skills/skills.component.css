@@ -3,13 +3,6 @@
   background-color: #131313;
   padding-top: 3rem;
 }
-/* :host {
-  display: block;
-  background-color: #0d0d0d;
-  font-family: 'JetBrains Mono', monospace;
-  color: white;
-  min-height: 100vh;
-} */
 .heading{
   font-size: 5rem;
   text-align: center;

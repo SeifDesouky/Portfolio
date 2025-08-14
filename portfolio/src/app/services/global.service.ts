@@ -44,6 +44,15 @@ export class GlobalService {
   getProjects(): Observable<any>{
     return this.http.get(`${this.baseUrl}/project/getProjects`)
   }
+  addProject(body:any): Observable<any>{
+    return this.http.post(`${this.baseUrl}/project`,body)
+  }
+  updateProject(body:any,id:string): Observable<any>{
+    return this.http.put(`${this.baseUrl}/project/${id}`,body)
+  }
+  deleteProject(id:string): Observable<any>{
+    return this.http.patch(`${this.baseUrl}/project/${id}`,{})
+  }
 
   getComment(): Observable<any>{
     return this.http.get(`${this.baseUrl}/contact`)
@@ -56,5 +65,4 @@ export class GlobalService {
   }
 
 
-  updateProject(body:any,id:string){}
 }

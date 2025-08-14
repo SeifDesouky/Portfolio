@@ -122,7 +122,6 @@ isSubmitted:boolean=false
   (this as any)._model = model;
 });
 
-    // Controls
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     this.controls.enableDamping = true;
     this.controls.enableZoom = false;

@@ -9,7 +9,6 @@
       <div class="form-layout">
         <div class="form-fields">
 
-          <!-- Category -->
           <div class="form-group">
             <label class="form-label required">Category</label>
             <input type="text" formControlName="category" class="form-input"
@@ -21,11 +20,9 @@
             </div>
           </div>
 
-          <!-- Skills Array -->
           <div formArrayName="skill">
             <div *ngFor="let skill of skills; let i = index" [formGroupName]="i" class="skill-item">
 
-              <!-- Skill Name -->
               <div class="form-group">
                 <label class="form-label required">Skill Name</label>
                 <input type="text" formControlName="name" class="form-input"
@@ -37,7 +34,6 @@
                 </div>
               </div>
 
-              <!-- Skill Image -->
               <div class="form-group">
                 <label class="form-label required">Image URL</label>
                 <input type="text" formControlName="img" class="form-input"
@@ -48,20 +44,17 @@
                 </div>
               </div>
 
-              <!-- Remove Button -->
               <button type="button" class="btn btn-secondary" (click)="removeSkill(i)" *ngIf="skills.length > 1">
                 Remove Skill
               </button>
             </div>
           </div>
 
-          <!-- Add Skill Button -->
           <button type="button" class="btn btn-secondary" (click)="addSkill()">
             + Add New Skill
           </button>
 
 
-          <!-- Submit -->
           <div class="form-actions">
             <button type="submit" class="btn btn-primary">
               <i class="fas fa-save"></i> Save Changes

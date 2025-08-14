@@ -8,12 +8,6 @@ import { GlobalService } from '../../../services/global.service';
   styleUrl: './projects.component.css'
 })
 export class ProjectsComponent {
-  // project = {
-  //   number: '01',
-  //   title: 'Frontend Project',
-  //   description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Scelerisque consequat, faucibus et, et.',
-  //   technologies: ['Html 5', 'Css 3', 'Javascript']
-  // };
 
   projects: any[] = [];
   currentIndex = 0;
@@ -48,7 +42,7 @@ resetAnimation(): void {
   const animatedElements = document.querySelectorAll('.fade-up');
   animatedElements.forEach(el => {
     el.classList.remove('fade-up');
-    void (el as HTMLElement).offsetWidth; // force reflow
+    void (el as HTMLElement).offsetWidth;
     el.classList.add('fade-up');
   });
 }

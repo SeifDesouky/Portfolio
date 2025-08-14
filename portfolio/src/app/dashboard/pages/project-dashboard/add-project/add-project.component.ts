@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { GlobalService } from '../../../../services/global.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-project',
@@ -12,7 +14,7 @@ export class AddProjectComponent {
   isSubmitted = false;
   selectedFile!: File;
 
-  constructor() {}
+  constructor(private gloabl:GlobalService,private toaster:ToastrService) {}
 
   ngOnInit() {
     this.projectForm = new FormGroup({
@@ -63,9 +65,14 @@ export class AddProjectComponent {
       formData.append('projectImg', this.selectedFile);
     }
 
-    // this.http.post('http://localhost:3000/projects', formData)
-    //   .subscribe(res => {
-    //     console.log('Project saved:', res);
-    //   });
+    this.gloabl.addProject(formData).subscribe({
+      next: (res: any) => {
+        this.toaster.success(res.message);
+        this.projectForm.reset()
+      },
+      error: () => {
+        this.toaster.error('Something went wrong');
+      }
+    });
   }
 }
