@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 
 export interface Service {
@@ -18,7 +19,8 @@ export interface Service {
 })
 export class GlobalService {
   constructor(private http: HttpClient) { }
-    baseUrl='http://localhost:3000/api'
+  // baseUrl = 'http://localhost:3000/api'
+  private baseUrl = environment.apiUrl;
     getHome():Observable<any>{
       return this.http.get(`${this.baseUrl}/home/getHome`)
   }
