@@ -12,6 +12,7 @@ import { ProjectsComponent } from './pages/projects/projects.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContactComponent } from './pages/contact/contact.component';
+import { ServicesComponent } from './pages/services/services.component';
 
 @NgModule({
   declarations: [
@@ -22,13 +23,14 @@ import { ContactComponent } from './pages/contact/contact.component';
     EducationComponent,
     SkillsComponent,
     ProjectsComponent,
-    ContactComponent
+    ContactComponent,
+    ServicesComponent
   ],
   imports: [
     CommonModule,
     PortfolioRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
 ],
 
 })

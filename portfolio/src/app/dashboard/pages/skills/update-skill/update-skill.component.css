@@ -7,7 +7,6 @@
   perspective: 1000px;
 }
 
-/* ===================== الكارد  */
 .card {
   border-radius: 20px;
   padding: 20px;
@@ -134,12 +133,11 @@
   z-index: 9999;
 }
 
-/* ===================== صندوق المودال ===================== */
 .custom-modal {
   background: rgba(19, 19, 19, 0.95);
   width: 500px;
   max-width: 95%;
-  max-height: 80vh; /* أقصى ارتفاع للمودال */
+  max-height: 80vh;
   border-radius: 20px;
   box-shadow: 0 4px 20px rgba(0, 255, 238, 0.15);
   border: 1px solid rgba(0, 255, 238, 0.3);
@@ -150,7 +148,6 @@
   animation: fadeInUp 0.3s ease;
 }
 
-/* ===================== الهيدر داخل المودال ===================== */
 .modal-header {
   flex: 0 0 auto;
   background: rgba(0, 255, 238, 0.1);
@@ -175,14 +172,12 @@
   cursor: pointer;
 }
 
-/* ===================== جسم المودال Scrollable ===================== */
 .custom-modal form {
   padding: 20px;
   overflow-y: auto;
   flex: 1;
 }
 
-/* ===================== الحقول داخل المودال ===================== */
 .form-group {
   margin-bottom: 15px;
 }
@@ -217,7 +212,6 @@ textarea {
   height: 120px;
 }
 
-/* ===================== أزرار داخل المودال ===================== */
 .modal-actions {
   display: flex;
   justify-content: flex-end;
@@ -254,7 +248,6 @@ textarea {
   transform: scale(1.05);
 }
 
-/* ===================== أنيميشن المودال ===================== */
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }

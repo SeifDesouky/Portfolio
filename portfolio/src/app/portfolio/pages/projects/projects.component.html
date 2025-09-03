@@ -1,4 +1,4 @@
-<h1 class="text-center heading">My Work</h1>
+<h1 class="text-center heading" id="projects">My Work</h1>
 <div class="portfolio-section" *ngIf="currentProject">
   <div class="project-info">
     <div class="project-number fade-up  delay-1">{{ currentProject.number }}</div>
@@ -28,7 +28,7 @@
 
   <div class="project-preview fade-up delay-4">
     <div class="project-image">
-      <img [src]="'http://localhost:3000/projectImg/'+currentProject.projectImg" class="w-100 h-100" alt="">
+      <img [src]="projectImg+currentProject.projectImg" class="w-100 h-100" alt="">
     </div>
     <div class="navigation-controls">
       <button class="nav-button" (click)="onPreviousProject()" title="Previous Project" type="button">

@@ -11,6 +11,7 @@ export class ProjectsComponent {
 
   projects: any[] = [];
   currentIndex = 0;
+  projectImg = 'http://localhost:3000/projectImg/';
   constructor(private global: GlobalService) {}
   ngOnInit() {
     this.global.getProjects().subscribe(res => {

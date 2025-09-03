@@ -13,7 +13,6 @@
 }
 .sidebar {
   width: 280px;
-  /* background-color: var(--bg-secondary); */
   background-color: var(#131313);
   padding: 24px;
   display: flex;

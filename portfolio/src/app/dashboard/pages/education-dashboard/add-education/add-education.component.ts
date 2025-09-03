@@ -16,7 +16,8 @@ export class AddEducationComponent {
 
   ngOnInit() {
     this.eduForm = new FormGroup({
-      date: new FormControl('', [Validators.required, Validators.pattern(/^(19|20)\d{2}$/)]),
+      date: new FormControl('', [Validators.required, Validators.pattern(
+    /(^((19|20)\d{2})\s*[-–]\s*((19|20)\d{2})$)|(^([A-Za-z]{3,9})\s*[-–]\s*([A-Za-z]{3,9})\s*((19|20)\d{2})$)/)]),
       title: new FormControl('', [Validators.required, Validators.minLength(3)]),
       description: new FormControl('', [Validators.required, Validators.minLength(5)]),
     })

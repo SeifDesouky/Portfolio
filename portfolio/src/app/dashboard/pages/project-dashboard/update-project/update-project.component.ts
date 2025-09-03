@@ -14,7 +14,7 @@ export class UpdateProjectComponent {
   isEditModalOpen = false;
   projectForm!: FormGroup;
   selectedId: string = '';
-
+  projectImg = 'http://localhost:3000/projectImg/';
   constructor(private global: GlobalService, private toaster: ToastrService) {}
 
   ngOnInit() {

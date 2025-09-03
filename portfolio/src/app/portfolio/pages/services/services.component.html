@@ -1,0 +1,37 @@
+ <section class="services-section" id="service">
+  <div class="container">
+    <div class="heading">
+      <span class="eyebrow">Services</span>
+      <h2>How I Can Help Your Business</h2>
+      <p class="lead">
+        I create websites and online solutions that don’t just look good, they help your business grow,
+        reach more people, and work more smoothly.
+      </p>
+    </div>
+
+    <div class="cards-grid">
+      <article class="service-card" *ngFor="let s of services">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke="currentColor" stroke-width="2" fill="none"  [attr.d]="s.icon" />
+          </svg>
+        </div>
+        <h3>{{ s.title }}</h3>
+        <p class="tagline">{{ s.tagline }}</p>
+        <ul>
+          <li *ngFor="let b of s.bullets">{{ b }}</li>
+        </ul>
+        <button class="cta">{{ s.cta }}</button>
+      </article>
+    </div>
+
+    <div class="cta-strip">
+      <div class="cta-content">
+        <h3>Have an idea? Let’s build it together.</h3>
+        <p>I’ll take care of everything from start to finish.</p>
+      </div>
+      <a class="cta-primary" href="#contact">Get a Free Quote</a>
+    </div>
+  </div>
+</section>
+

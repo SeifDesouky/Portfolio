@@ -10,7 +10,7 @@ import { GlobalService } from '../../../services/global.service';
 export class HomeDashboardComponent {
 
   homeForm!: FormGroup;
-
+  staticUrl='http://localhost:3000/images/'
 
   constructor(private global: GlobalService) {}
   home: any ;
@@ -30,7 +30,7 @@ export class HomeDashboardComponent {
       });
     });
 
-    
+
   }
 
   onSubmit() {

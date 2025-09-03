@@ -1,9 +1,27 @@
-h1{
+/* h1{
   font-size: 5em;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-.headeing{
-  font-size: 10em;
+
+.heading {
+  font-size: clamp(2.8rem, 5vw, 4.5rem);
+  text-align: center;
+  color: #00ffee;
+  margin-bottom: 4rem;
+  text-shadow: 0 0 25px rgba(0, 255, 238, 0.8);
+  letter-spacing: 2px;
+  position: relative;
+}
+
+.heading::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: #00ffee;
+  margin: 1rem auto 0;
+  border-radius: 2px;
+  box-shadow: 0 0 15px #00ffee;
 }
 :host {
   display: block;
@@ -364,6 +382,227 @@ h1{
   box-shadow: 0 6px 20px rgba(0, 255, 200, 0.4);
 }
 
+.fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.6s ease forwards;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+.delay-3 { animation-delay: 0.6s; }
+.delay-4 { animation-delay: 0.8s; } */
+
+
+/* 🎨 Section Base */
+:host {
+  display: block;
+  /* background: radial-gradient(circle at top, #0f2027, #131313 80%); */
+  font-family: 'JetBrains Mono', monospace;
+  color: white;
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+/* ✨ Heading */
+.heading {
+  font-size: clamp(3rem, 6vw, 5rem);
+  text-align: center;
+  background: linear-gradient(90deg, #00ffee, #00ccff, #ff00cc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 4rem;
+  letter-spacing: 2px;
+  font-weight: 800;
+  animation: glowText 4s infinite alternate;
+}
+
+@keyframes glowText {
+  from { text-shadow: 0 0 20px #00ffee; }
+  to   { text-shadow: 0 0 40px #ff00cc; }
+}
+
+/* 🖼️ Layout */
+.portfolio-section {
+  max-width: 1400px;
+  width: 90%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 70px;
+  align-items: center;
+}
+
+.project-info {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* 🚀 Numbers */
+.project-number {
+  font-size: clamp(70px, 10vw, 120px);
+  font-weight: 700;
+  color: transparent;
+  -webkit-text-stroke: 2px #00ffee;
+  line-height: 0.8;
+  margin-bottom: -20px;
+  text-shadow: 0 0 80px #00ffee;
+}
+
+/* 🔖 Titles & Desc */
+.project-title {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 700;
+  color: white;
+  line-height: 1.2;
+}
+
+.project-description {
+  font-size: 1rem;
+  color: #aaa;
+  line-height: 1.7;
+  max-width: 500px;
+}
+
+/* 🏷️ Tech Stack Chips */
+.tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.tech-item {
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: rgba(0, 255, 238, 0.1);
+  border: 1px solid #00ffee50;
+  color: #00ffee;
+  font-size: 14px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.tech-item:hover {
+  background: #00ffee20;
+  box-shadow: 0 0 15px #00ffee;
+  transform: translateY(-3px);
+}
+
+/* 🔘 Action Buttons */
+.project-actions {
+  display: flex;
+  gap: 16px;
+}
+
+.action-button {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  border: 1px solid #333;
+  background: #1a1a1a;
+  color: #888;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.action-button:hover {
+  color: #00ffee;
+  border-color: #00ffee;
+  box-shadow: 0 0 20px #00ffee;
+  transform: scale(1.1);
+}
+
+/* 🖼️ Project Image */
+.project-preview {
+  position: relative;
+}
+
+.project-image {
+  height: 420px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 2px solid #00ffee40;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  background: #0d0d0d;
+  transition: transform 0.4s ease;
+  perspective: 1000px;
+}
+
+.project-image:hover {
+  transform: rotateX(5deg) rotateY(-5deg) scale(1.02);
+}
+
+.project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.4s ease;
+}
+
+.project-image:hover img {
+  transform: scale(1.05);
+}
+
+/* 🔄 Navigation */
+.navigation-controls {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.nav-button {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: #00ffee;
+  border: none;
+  color: #0d0d0d;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.nav-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 25px #00ffee;
+}
+
+/* 📱 Responsive */
+@media (max-width: 992px) {
+  .portfolio-section {
+    grid-template-columns: 1fr;
+    gap: 50px;
+    text-align: center;
+  }
+  .project-description {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 576px) {
+  .project-image {
+    height: 280px;
+  }
+  .project-title {
+    font-size: 26px;
+  }
+  .tech-item {
+    font-size: 12px;
+    padding: 4px 10px;
+  }
+}
 .fade-up {
   opacity: 0;
   transform: translateY(20px);

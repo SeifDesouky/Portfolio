@@ -2,6 +2,17 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+
+export interface Service {
+  _id: string;
+  title: string;
+  tagline: string;
+  bullets: string[];
+  icon: string;
+  cta?: string;
+  isDeleted: boolean;
+  deletedAt?: Date;
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -39,6 +50,10 @@ export class GlobalService {
   }
   deleteSkill(id: string): Observable<any>{
     return this.http.patch(`${this.baseUrl}/skills/${id}`,{})
+  }
+
+  getServices(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/services`);
   }
 
   getProjects(): Observable<any>{

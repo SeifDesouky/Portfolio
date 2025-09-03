@@ -1,34 +1,44 @@
 <section id="home">
-<div class="home d-flex">
-  <div class="col-6">
-    <div class="text-container">
-      <h1 class="text-white">{{this.homeContent?.title}} <span>Desouky</span></h1>
-      <h3 class="text-white text-animation">I'm a <span></span> </h3>
-      <p class="text-white">{{this.homeContent?.description}}</p>
+  <div class="home d-flex" *ngIf="!loading; else skeleton">
+    <div class="col-6">
+      <div class="text-container">
+        <h1 class="text-white" data-aos="fade-up">{{homeContent?.title}} <span>Desouky</span></h1>
+        <h3 class="text-white text-animation" data-aos="fade-up" data-aos-delay="200">I'm a <span></span></h3>
+        <p class="desc" [innerHTML]="homeContent?.description" data-aos="fade-up" data-aos-delay="400"></p>
+      </div>
+
+      <div class="social-icons" data-aos="fade-right" data-aos-delay="600">
+        <a [href]="homeContent?.linkdin" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+        <a [href]="homeContent?.github" target="_blank"><i class="fa-brands fa-github"></i></a>
+        <a [href]="homeContent?.instagram" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+        <a [href]="homeContent?.facebook" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+      </div>
+
+      <div class="btns" data-aos="zoom-in" data-aos-delay="800">
+        <a [href]="staticFiles+homeContent?.cv" download>
+          <button class="btn1">Download CV</button>
+        </a>
+      </div>
     </div>
-    <div class="social-icons">
-      <a [href]="this.homeContent?.linkdin" target="_blank" rel="noopener noreferrer">
-        <i class="fa-brands fa-linkedin"></i>
-      </a>
-      <a [href]="this.homeContent?.github" target="_blank" rel="noopener noreferrer">
-        <i class="fa-brands fa-github"></i>
-      </a>
-      <a [href]="this.homeContent?.instagram" target="_blank" rel="noopener noreferrer">
-        <i class="fa-brands fa-instagram"></i>
-      </a>
-      <a [href]="homeContent?.facebook" target="_blank" rel="noopener noreferrer">
-        <i class="fa-brands fa-facebook"></i>
-      </a>
-    </div>
-    <div class="btns">
-      <a [href]="'http://localhost:3000/files/'+homeContent?.cv" download>
-        <button class="btn1">Download CV</button>
-      </a>
+
+    <div class="col-5 img" data-aos="fade-left" data-aos-delay="900">
+      <img loading="lazy" [src]="staticUrl+homeContent?.profileImg" [alt]="homeContent?.logo">
     </div>
   </div>
 
-  <div class="col-5 img">
-    <img [src]="'http://localhost:3000/images/'+homeContent?.profileImg" [alt]="homeContent?.logo">
-  </div>
-</div>
+  <ng-template #skeleton>
+    <div class="home d-flex">
+      <div class="col-6">
+        <div class="skeleton title"></div>
+        <div class="skeleton subtitle"></div>
+        <div class="skeleton text"></div>
+        <div class="skeleton text"></div>
+        <div class="skeleton icons"></div>
+        <div class="skeleton btn"></div>
+      </div>
+      <div class="col-5">
+        <div class="skeleton img"></div>
+      </div>
+    </div>
+  </ng-template>
 </section>

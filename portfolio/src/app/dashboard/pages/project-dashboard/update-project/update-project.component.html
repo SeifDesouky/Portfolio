@@ -1,6 +1,6 @@
 <div class="dashboard-grid">
   <div class="card from-left overall-info" *ngFor="let p of projectsList">
-    <img class="project-thumbnail" [src]="'http://localhost:3000/projectImg/' + p.projectImg" alt="{{ p.title }}" />
+    <img class="project-thumbnail" [src]="projectImg + p.projectImg" alt="{{ p.title }}" />
 
     <div class="card-header">
       <h3>{{ p.title }}</h3>

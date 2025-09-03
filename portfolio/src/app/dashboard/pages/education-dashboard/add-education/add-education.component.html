@@ -10,8 +10,8 @@
         <div class="form-fields">
           <div class="form-group">
             <label for="title" class="form-label required">Date</label>
-            <input type="text" id="date" formControlName="date" class="form-input" [ngClass]="{'error-border': (eduForm.get('description')?.invalid && eduForm.get('description')?.touched)|| (eduForm.get('description')?.invalid && isSubmitted)}"/>
-            <div *ngIf="(eduForm.get('description')?.invalid && eduForm.get('description')?.touched) || (eduForm.get('description')?.invalid && isSubmitted)">
+            <input type="text" id="date" formControlName="date" class="form-input" [ngClass]="{'error-border': (eduForm.get('date')?.invalid && eduForm.get('date')?.touched)|| (eduForm.get('date')?.invalid && isSubmitted)}"/>
+            <div *ngIf="(eduForm.get('date')?.invalid && eduForm.get('date')?.touched) || (eduForm.get('description')?.invalid && isSubmitted)">
 
               <span class="error-message" *ngIf="eduForm.get('date')?.errors?.['required']">date is required</span>
               <span class="error-message" *ngIf="eduForm.get('date')?.errors?.['pattern']">Enter a valid year</span>
