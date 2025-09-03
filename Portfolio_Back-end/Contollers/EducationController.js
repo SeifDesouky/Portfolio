@@ -1,7 +1,7 @@
 const Education = require('../Models/EducationModel');
 
 const getEduction = async (req, res) => {
-    const educationContent = await Education.find();
+    const educationContent = await Education.find({isDeleted:false});
     if (!educationContent) {
         res.status(200).json({message:"Education not found"})
     }
@@ -21,9 +21,9 @@ const addEducation = async (req, res) => {
         })
     } catch (err) {
         res.status(500).json({error:err.message})
-    } 
+    }  
 }
-
+ 
 const updateEducation = async (req, res) => {
     try {
         const updated = req.body;
