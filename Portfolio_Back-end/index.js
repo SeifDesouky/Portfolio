@@ -31,11 +31,11 @@ app.use("/api/services", serviceRoutes);
 app.use('/api/project', projectRoutes);
 app.use('/api/contact', contactRoute);
 
-app.use(express.static(path.join(__dirname, '../portfolio/dist/portfolio/browser')));
+// app.use(express.static(path.join(__dirname, '../portfolio/dist/portfolio/browser')));
 
-app.get(/.*/, (req, res) => {
-  res.sendFile(path.join(__dirname, '../portfolio/dist/portfolio/browser/index.html'));
-});
+// app.get(/.*/, (req, res) => {
+//   res.sendFile(path.join(__dirname, '../portfolio/dist/portfolio/browser/index.html'));
+// });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
