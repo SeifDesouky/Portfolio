@@ -1,0 +1,127 @@
+
+
+.admin-hero {
+  position: relative;
+  padding: 80px 20px;
+  border-radius: 24px;
+  margin-top: 40px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #00ffee, #131313, #00ccb9);
+  background-size: 400% 400%;
+  animation: gradientBG 8s ease infinite;
+  color: white;
+  text-align: center;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.admin-hero .overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-title {
+  font-size: 42px;
+  font-weight: 800;
+  margin-bottom: 16px;
+  animation: slideDown 1s ease forwards;
+}
+
+.hero-title .highlight {
+  color: var(--accent-color);
+}
+
+.hero-subtitle {
+  font-size: 18px;
+  color: var(--text-secondary);
+  margin-bottom: 40px;
+  animation: fadeIn 1.5s ease forwards;
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.stat-card {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--accent-color);
+  border-radius: 16px;
+  padding: 20px 30px;
+  min-width: 150px;
+  text-align: center;
+  transform: translateY(30px);
+  opacity: 0;
+}
+
+.stat-card h3 {
+  font-size: 28px;
+  color: var(--accent-color);
+  margin-bottom: 8px;
+}
+
+.stat-card p {
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.hero-btn {
+  background: var(--accent-color);
+  color: var(--bg-primary);
+  padding: 14px 36px;
+  font-size: 16px;
+  border: none;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.hero-btn:hover {
+  transform: translateY(-4px) scale(1.05);
+  background: #00ccb9;
+  box-shadow: 0 8px 20px rgba(0, 255, 238, 0.5);
+}
+
+/* Animations */
+@keyframes slideDown {
+  from { transform: translateY(-40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.delay-1 { animation-delay: 0.5s; }
+.delay-2 { animation-delay: 0.9s; }
+.delay-3 { animation-delay: 1.3s; }
+.stat-icon {
+  font-size: 2rem;
+  color: #00ffee; /* ممكن تغير اللون */
+  margin-bottom: 10px;
+}

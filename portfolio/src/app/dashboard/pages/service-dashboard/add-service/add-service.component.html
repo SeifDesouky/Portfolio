@@ -1,0 +1,37 @@
+<div class="form-card neon-form">
+  <h2>➕ Add New Service</h2>
+  <form [formGroup]="serviceForm" (ngSubmit)="onSubmit()">
+    <div class="input-group">
+      <input formControlName="title" placeholder="Service Title" />
+      <div class="error" *ngIf="serviceForm.get('title')?.touched && serviceForm.get('title')?.invalid">
+        Title is required.
+      </div>
+    </div>
+
+    <div class="input-group">
+      <input formControlName="tagline" placeholder="Tagline" />
+      <div class="error" *ngIf="serviceForm.get('tagline')?.touched && serviceForm.get('tagline')?.invalid">
+        Tagline is required.
+      </div>
+    </div>
+
+    <div class="input-group">
+      <input formControlName="bullets" placeholder="Bullets (comma separated)" />
+    </div>
+
+    <div class="input-group">
+      <input formControlName="icon" placeholder="Icon URL" />
+      <div class="error" *ngIf="serviceForm.get('icon')?.touched && serviceForm.get('icon')?.invalid">
+        Icon URL is required.
+      </div>
+    </div>
+
+    <div class="input-group">
+      <input formControlName="cta" placeholder="Call to Action" />
+    </div>
+
+    <button type="submit" [disabled]="serviceForm.invalid" class="neon-btn">
+      🚀 Add Service
+    </button>
+  </form>
+</div>

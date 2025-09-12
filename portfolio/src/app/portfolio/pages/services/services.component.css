@@ -10,15 +10,34 @@
   padding: 0 20px;
 }
 
-.heading { text-align: center; margin-bottom: 36px; }
+.heading { text-align: center; margin-bottom: 4rem; }
+.heading h2{
+  font-size: clamp(2.8rem, 5vw, 4.5rem);
+  text-align: center;
+  color: #00ffee;
+  text-shadow: 0 0 25px rgba(0, 255, 238, 0.8);
+  letter-spacing: 2px;
+  position: relative;
+}
+
+.heading::after{
+  content: "";
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: #00ffee;
+  margin: 1rem auto 0;
+  border-radius: 2px;
+  box-shadow: 0 0 15px #00ffee;
+}
+
 .eyebrow {
-  font-size: 12px;
-  letter-spacing: 0.15em;
+  font-size: 30px;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #00ffee;
   margin-bottom: 8px;
 }
-.heading h2 { font-size: 38px; margin: 0 0 12px; color: #00ffee; }
 .lead { max-width: 700px; margin: 0 auto; opacity: 0.9; }
 
 .cards-grid {

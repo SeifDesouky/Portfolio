@@ -7,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrl: './project-dashboard.component.css'
 })
 export class ProjectDashboardComponent {
-
+  componentInfo = {
+    name: 'Projects',
+    icon: 'description',
+    active: false,
+    addRoute: '/dashboard/project-dashboard/addProject',
+    updateRoute: '/dashboard/project-dashboard/updateProject'
+  }
 }

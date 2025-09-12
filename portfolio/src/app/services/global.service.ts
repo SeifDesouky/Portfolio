@@ -80,6 +80,16 @@ export class GlobalService {
   deleteComment(id: string): Observable<any>{
     return this.http.patch(`${this.baseUrl}/contact/${id}`,{})
   }
-
-
+  createService(data: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/services`, data);
+  }
+  updateService(id: string, data: any): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}/services/${id}`, data);
+  }
+  deleteService(id: string): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}/services/${id}`);
+  }
+  restoreService(id: string): Observable<any> {
+    return this.http.patch(`${this.baseUrl}/services/${id}/restore`, { deleted: false });
+  }
 }

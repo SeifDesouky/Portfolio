@@ -4,9 +4,12 @@ const Skills = require('../Models/SkillsModel')
 const getAllSkills= async (req, res) => {
     try {
         const skills = await Skills.find({ isDeleted: false });
+        const count = skills.reduce((acc, item) => acc + item.skill.length, 0);
+
         res.status(200).json({
             data: skills,
-            message:"Skills fetched successfully"
+            message: "Skills fetched successfully",
+            count: count
         })
     } catch (err) {
         res.status(500).json({error:err.message})
@@ -21,7 +24,7 @@ const createCategory= async (req, res) => {
         res.status(201).json({data : newSkill,message:"skill add successfully",count:newSkill.length})
     } catch (err) {
         res.status(500).json({error:err.message})
-    }
+    } 
 }
 
 const addSkillToCategory = async (req, res) => {

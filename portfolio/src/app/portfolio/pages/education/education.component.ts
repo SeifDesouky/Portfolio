@@ -19,7 +19,6 @@ export class EducationComponent {
   }
 
   ngAfterViewInit() {
-    // نراقب العناصر بعد تأكد إنها ظهرت في DOM
     setTimeout(() => this.observeTimelineItems(), 1000);
   }
 
@@ -31,7 +30,7 @@ export class EducationComponent {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('show');
-            observer.unobserve(entry.target); // مش لازم نتابع بعد ما ظهر
+            observer.unobserve(entry.target);
           }
         });
       },

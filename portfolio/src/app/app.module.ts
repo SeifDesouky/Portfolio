@@ -24,10 +24,7 @@ import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-br
       preventDuplicates: true,
     })
   ],
-  providers: [
-    // provideToastr(), // Toastr providers
-    // provideAnimations()
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

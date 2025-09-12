@@ -6,26 +6,26 @@
 
       <form (ngSubmit)="onSubmit()" [formGroup]="myForm" novalidate>
         <label>
-          <input name="name" formControlName="name" placeholder="Name" [ngClass]="{'error-border': (myForm.get('name')?.invalid && myForm.get('name')?.touched)|| (myForm.get('name')?.invalid && isSubmitted)}"/>
+         <input formControlName="name" [ngClass]="{'error-border': (f['name'].invalid && (f['name'].touched || isSubmitted))}" placeholder="Name"/>
 
-          <div *ngIf="(myForm.get('name')?.invalid && myForm.get('name')?.touched) || (myForm.get('name')?.invalid && isSubmitted)">
-              <span class="error-message" *ngIf="myForm.get('name')?.errors?.['required']">Name is required</span>
+          <div *ngIf="(f['name'].invalid && f['name'].touched) || (f['name'].invalid && isSubmitted)">
+              <span class="error-message" *ngIf="f['name'].errors?.['required']">Name is required</span>
             </div>
         </label>
 
         <label>
-          <input name="email" formControlName="email" placeholder="Email" [ngClass]="{'error-border': (myForm.get('email')?.invalid && myForm.get('email')?.touched)|| (myForm.get('email')?.invalid && isSubmitted)}"/>
-          <div *ngIf="(myForm.get('email')?.invalid && myForm.get('email')?.touched) || (myForm.get('email')?.invalid && isSubmitted)">
-              <span class="error-message" *ngIf="myForm.get('email')?.errors?.['required']">Email is required</span>
-              <span class="error-message" *ngIf="myForm.get('email')?.errors?.['pattern']">Invalid Email</span>
+          <input name="email" formControlName="email" placeholder="Email" [ngClass]="{'error-border': (f['email'].invalid && f['email'].touched)|| (f['email'].invalid && isSubmitted)}"/>
+          <div *ngIf="(f['email']?.invalid && f['email']?.touched) || (f['email']?.invalid && isSubmitted)">
+              <span class="error-message" *ngIf="f['email']?.errors?.['required']">Email is required</span>
+              <span class="error-message" *ngIf="f['email']?.errors?.['pattern']">Invalid Email</span>
             </div>
         </label>
 
         <label>
-          <textarea name="message" formControlName="msg" rows="5" placeholder="Message" [ngClass]="{'error-border': (myForm.get('msg')?.invalid && myForm.get('msg')?.touched)|| (myForm.get('msg')?.invalid && isSubmitted)}"></textarea>
+          <textarea name="message" formControlName="msg" rows="5" placeholder="Message" [ngClass]="{'error-border': (f['msg'].invalid && f['msg'].touched)|| (f['msg'].invalid && isSubmitted)}"></textarea>
 
-          <div *ngIf="(myForm.get('msg')?.invalid && myForm.get('msg')?.touched) || (myForm.get('msg')?.invalid && isSubmitted)">
-              <span class="error-message" *ngIf="myForm.get('msg')?.errors?.['required']">Message is required</span>
+          <div *ngIf="(f['msg']?.invalid && f['msg']?.touched) || (f['msg']?.invalid && isSubmitted)">
+              <span class="error-message" *ngIf="f['msg']?.errors?.['required']">Message is required</span>
 
             </div>
         </label>

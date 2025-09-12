@@ -15,6 +15,8 @@ export class SkillsComponent {
   ngOnInit() {
     this.global.getSkills().subscribe(res => {
       this.Skills = res.data;
+      console.log(this.Skills);
+
       this.categories = [...new Set(res.data.map((element: any) => element.category))]
     })
   }

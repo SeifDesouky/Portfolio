@@ -1,0 +1,41 @@
+<div class="services-grid">
+  <div
+    class="service-card"
+    *ngFor="let s of services"
+    [class.deleted]="s.deleted"
+  >
+    <div class="card-content">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke="currentColor" stroke-width="2" fill="none"  [attr.d]="s.icon" />
+      </svg>
+      <h3>{{ s.title }}</h3>
+      <p class="tagline">{{ s.tagline }}</p>
+      <ul>
+        <li *ngFor="let b of s.bullets">{{ b }}</li>
+      </ul>
+      <p class="cta">{{ s.cta }}</p>
+    </div>
+
+    <div class="actions" *ngIf="editingId !== s._id">
+      <button class="neon-btn blue" (click)="onEdit(s)">✎ Update</button>
+      <button *ngIf="!s.isDeleted" class="neon-btn red" (click)="onDelete(s._id)">✖ Delete</button>
+      <button *ngIf="s.isDeleted" class="neon-btn green" (click)="onRestore(s._id)">⟳ Restore</button>
+    </div>
+
+    <div class="edit-form" *ngIf="editingId === s._id">
+      <form [formGroup]="editForm" (ngSubmit)="saveEdit()">
+        <input formControlName="title" placeholder="Title" />
+        <input formControlName="tagline" placeholder="Tagline" />
+        <input formControlName="bullets" placeholder="Bullets" />
+        <input formControlName="icon" placeholder="Icon URL" />
+        <input formControlName="cta" placeholder="CTA" />
+        <button type="submit" class="neon-btn green">💾 Save</button>
+        <button type="button" class="neon-btn yellow" (click)="cancelEdit()">✖ Cancel</button>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="form-actions" routerLink="/dashboard/service-dashboard">
+    <button type="submit" class="btn1 btn-primary"><i class="fa-solid fa-arrow-left"></i> Back</button>
+</div>
+

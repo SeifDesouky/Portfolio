@@ -22,21 +22,25 @@ isSubmitted:boolean=false
   })
 
   constructor(private global:GlobalService,private toaster:ToastrService){}
-  onSubmit() {
-    console.log(this.myForm);
-    this.isSubmitted=true
-    this.global.addComment(this.myForm.value).subscribe({
-      next: (res) => {
-        this.toaster.success(res.message);
-        this.myForm.reset();
-        this.isSubmitted = false;
-      },
-      error: (err) => {
-        this.toaster.error('Error deleting category');
-      }
-    });
-
+onSubmit() {
+  this.isSubmitted = true;
+  if (this.myForm.invalid) {
+    this.toaster.warning("Please fill all required fields correctly!");
+    return;
   }
+
+  this.global.addComment(this.myForm.value).subscribe({
+    next: (res) => {
+      this.toaster.success(res.message);
+      this.myForm.reset();
+      this.isSubmitted = false;
+    },
+    error: () => {
+      this.toaster.error('Something went wrong, try again.');
+    }
+  });
+}
+get f() { return this.myForm.controls; }
 
   sending = false;
   status = '';
@@ -55,11 +59,18 @@ isSubmitted:boolean=false
     window.addEventListener('resize', this.onWindowResize);
   }
 
-  ngOnDestroy(): void {
-    if (this.frameId) cancelAnimationFrame(this.frameId);
-    window.removeEventListener('resize', this.onWindowResize);
-    this.renderer.dispose();
-  }
+ngOnDestroy(): void {
+  if (this.frameId) cancelAnimationFrame(this.frameId);
+  window.removeEventListener('resize', this.onWindowResize);
+  this.renderer.dispose();
+  this.scene.traverse((obj: any) => {
+    if (obj.isMesh) {
+      obj.geometry.dispose();
+      if (obj.material.isMaterial) obj.material.dispose();
+    }
+  });
+}
+
 
   private initThree() {
     const canvas = this.threeCanvas.nativeElement;

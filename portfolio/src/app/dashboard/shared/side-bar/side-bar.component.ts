@@ -12,8 +12,9 @@ export class SideBarComponent {
     { name: 'Home', icon: 'calendar_today', active: false ,route:'/dashboard/home-dashboard'},
     { name: 'Education', icon: 'task', active: false ,route:'/dashboard/education-dashboard'},
     { name: 'Skill\'s', icon: 'analytics', active: false ,route:'/dashboard/skills-dashboard'},
+    { name: 'Projects', icon: 'description', active: false,route:'/dashboard/project-dashboard' },
+    { name: 'Services', icon: 'description', active: false,route:'/dashboard/service-dashboard' },
     { name: 'Contact', icon: 'description', active: false,route:'/dashboard/contact-dashboard' },
-    { name: 'Projects', icon: 'description', active: false,route:'/dashboard/project-dashboard' }
   ];
 
 

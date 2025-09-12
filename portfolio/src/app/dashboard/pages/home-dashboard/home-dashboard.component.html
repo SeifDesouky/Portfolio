@@ -1,4 +1,5 @@
-@if(homeForm){<div class="home-dashboard">
+@if(homeForm){
+<div class="home-dashboard">
   <div class="settings-card">
     <header class="page-header">
       <h1>Profile Setting</h1>
@@ -8,56 +9,72 @@
     <form [formGroup]="homeForm" (ngSubmit)="onSubmit()" class="settings-form" novalidate>
       <div class="form-layout">
 
+        <!-- Left side (inputs) -->
         <div class="form-fields">
           <div class="form-group">
-            <label for="title" class="form-label required">Title</label>
-            <input type="text" id="title" formControlName="title" class="form-input" />
+            <label class="form-label required">Title</label>
+            <input type="text" formControlName="title" class="form-input" />
           </div>
 
           <div class="form-group">
-            <label for="description" class="form-label required">Description</label>
-            <textarea id="description" formControlName="description" class="form-input textarea" rows="4"></textarea>
+            <label class="form-label required">Description</label>
+            <textarea formControlName="description" class="form-input textarea" rows="4"></textarea>
           </div>
 
           <div class="form-group">
-            <label for="linkedin" class="form-label"><i class="fab fa-linkedin"></i> LinkedIn</label>
-            <input type="url" id="linkedin" formControlName="linkdin" class="form-input" />
+            <label class="form-label">LinkedIn</label>
+            <input type="url" formControlName="linkdin" class="form-input" />
           </div>
 
           <div class="form-group">
-            <label for="github" class="form-label"><i class="fab fa-github"></i> GitHub</label>
-            <input type="url" id="github" formControlName="github" class="form-input" />
+            <label class="form-label">GitHub</label>
+            <input type="url" formControlName="github" class="form-input" />
           </div>
 
           <div class="form-group">
-            <label for="instagram" class="form-label"><i class="fab fa-instagram"></i> Instagram</label>
-            <input type="url" id="instagram" formControlName="instagram" class="form-input" />
+            <label class="form-label">Instagram</label>
+            <input type="url" formControlName="instagram" class="form-input" />
           </div>
 
           <div class="form-group">
-            <label for="facebook" class="form-label"><i class="fab fa-facebook"></i> Facebook</label>
-            <input type="url" id="facebook" formControlName="facebook" class="form-input" />
+            <label class="form-label">Facebook</label>
+            <input type="url" formControlName="facebook" class="form-input" />
           </div>
+          <div class="file-upload">
+  <label for="cvUpload" class="upload-box">
+    <span class="upload-icon">📄</span>
+    <span class="upload-text">
+      {{ cvName ? cvName : 'Upload your CV' }}
+    </span>
+  </label>
+  <input id="cvUpload" type="file" accept=".pdf,.doc,.docx" (change)="onFileSelected($event, 'cv')" hidden />
+</div>
 
-          <div class="form-group">
-            <label class="form-label"><i class="fas fa-file-pdf"></i> CV</label>
-            <input type="file" accept=".pdf,.doc,.docx" (change)="onFileSelected($event)" />
+          <div formArrayName="roles" class="mb-3">
+            <label class="form-label">Roles</label>
+            <div *ngFor="let role of roles.controls; let i = index" class="d-flex align-items-center mb-2">
+              <input [formControlName]="i" type="text" class="form-input me-2" placeholder="Role name" />
+              <button type="button" class="btn btn-danger btn-sm" (click)="removeRole(i)">Remove</button>
+            </div>
+            <button type="button" class="btn btn-primary btn-sm mt-2" (click)="addRole()">+ Add Role</button>
           </div>
 
           <div class="form-actions">
             <button type="submit" class="btn btn-primary">
-              <i class="fas fa-save"></i>Save Changes
+              <i class="fas fa-save"></i> Save Changes
             </button>
           </div>
         </div>
-
-        <div class="profile-preview-container">
-          <img [src]="staticUrl + home.profileImg"
-               alt="Profile Image"
-               class="profile-preview-img" />
-          <input type="file" accept="image/*" (change)="onFileSelected($event)" />
-        </div>
-
+        <div class="file-upload">
+  <label for="imgUpload" class="upload-box image-box">
+    <img
+      [src]="profilePreview || (staticUrl + home?.profileImg)"
+      alt="Profile Preview"
+      class="preview-img" />
+    <span class="upload-overlay">Change Profile</span>
+  </label>
+  <input id="imgUpload" type="file" accept="image/*" (change)="onFileSelected($event, 'profileImg')" hidden />
+</div>
       </div>
     </form>
   </div>

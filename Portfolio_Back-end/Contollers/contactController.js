@@ -5,7 +5,7 @@ const getMsgs = async (req, res) => {
     if (!contactContent) {
         res.status(200).json({message:"Contact not found"})
     }
-    res.json({data:contactContent})
+    res.json({data:contactContent,count:contactContent.length})
 }
 
 const addMsg = async (req, res) => {

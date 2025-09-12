@@ -2,12 +2,13 @@ const Service = require("../Models/serviceModel");
 
 exports.getServices = async (req, res) => {
   try {
-    const services = await Service.find({ isDeleted: false });
+    const services = await Service.find();
     res.json(services);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
+
 
 exports.createService = async (req, res) => {
   try {

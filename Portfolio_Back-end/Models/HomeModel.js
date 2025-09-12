@@ -14,6 +14,10 @@ const HomePage = new mongoose.Schema({
         type: String,
         maxlingth:500
     },
+    roles: {
+        type: [String],
+        default:[]
+    },
     cv:String,
     profileImg:String,
     linkdin: String,

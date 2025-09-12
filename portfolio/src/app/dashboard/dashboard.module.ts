@@ -17,6 +17,11 @@ import { ContactDashboardComponent } from './pages/contact-dashboard/contact-das
 import { ProjectDashboardComponent } from './pages/project-dashboard/project-dashboard.component';
 import { UpdateProjectComponent } from './pages/project-dashboard/update-project/update-project.component';
 import { AddProjectComponent } from './pages/project-dashboard/add-project/add-project.component';
+import { ServiceDashboardComponent } from './pages/service-dashboard/service-dashboard.component';
+import { CardsComponent } from './shared/cards/cards.component';
+import { AddServiceComponent } from './pages/service-dashboard/add-service/add-service.component';
+import { UpdateServiceComponent } from './pages/service-dashboard/update-service/update-service.component';
+import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component';
 
 
 @NgModule({
@@ -34,6 +39,11 @@ import { AddProjectComponent } from './pages/project-dashboard/add-project/add-p
     ProjectDashboardComponent,
     UpdateProjectComponent,
     AddProjectComponent,
+    ServiceDashboardComponent,
+    CardsComponent,
+    AddServiceComponent,
+    UpdateServiceComponent,
+    WelcomePageComponent,
 
   ],
   imports: [

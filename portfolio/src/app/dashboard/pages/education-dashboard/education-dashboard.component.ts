@@ -9,16 +9,11 @@ import { GlobalService } from '../../../services/global.service';
   styleUrl: './education-dashboard.component.css'
 })
 export class EducationDashboardComponent {
-  eduForm!: FormGroup;
-
-  constructor(private global: GlobalService) { }
-
-  ngOnInit() {
-    this.global.getEducation().subscribe(res => {
-      console.log(res);
-
-    }
-    )
+    componentInfo = {
+    name: 'Education',
+    icon: 'description',
+    active: false,
+    addRoute: '/dashboard/education-dashboard/addEducation',
+    updateRoute: '/dashboard/education-dashboard/updateEducation'
   }
-  onSubmit(){}
 }
