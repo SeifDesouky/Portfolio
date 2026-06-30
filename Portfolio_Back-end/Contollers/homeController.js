@@ -58,18 +58,40 @@ const addHomeContent = async (req, res) => {
 }
 
 const editHomeContent = async (req, res) => {
-    try {
-        const updates = req.body;
-        updates.cv = req.files?.cv?.[0].filename;
-        updates.profileImg= req.files?.profileImg?.[0].filename;
-        const updatedContent = await Home.findOneAndUpdate({}, updates,{new:true});
-        await updatedContent.save();
-        res.status(200).json({
-            updatedData:updatedContent
-        })
-    } catch (err) {
-        res.status(500).json({message:err.message})
+  try {
+    const updates = { ...req.body };
+
+    if (req.files?.cv?.[0]) {
+      updates.cv = req.files.cv[0].filename;
     }
+    if (req.files?.profileImg?.[0]) {
+      updates.profileImg = req.files.profileImg[0].filename;
+    }
+
+    if (typeof updates.roles === 'string') {
+      if (updates.roles.trim()) {
+        try {
+          updates.roles = JSON.parse(updates.roles);
+        } catch {
+          updates.roles = [];
+        }
+      } else {
+        updates.roles = [];
+      }
+    }
+
+    const updatedContent = await Home.findOneAndUpdate(
+      {},
+      updates,
+      { new: true, upsert: true }
+    );
+
+    res.status(200).json({
+      updatedData: updatedContent
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 }
 
 module.exports={getHomeContent,addHomeContent,editHomeContent} 
