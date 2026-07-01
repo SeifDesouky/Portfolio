@@ -10,24 +10,26 @@
         <div class="form-fields">
 
           <div class="form-group">
-            <label class="form-label required">Category</label>
-            <input type="text" formControlName="category" class="form-input"
+            <label class="form-label required" for="skill-category">Category</label>
+            <input id="skill-category" type="text" formControlName="category" class="form-input"
               [ngClass]="{'error-border': skillsForm.get('category')?.invalid && (skillsForm.get('category')?.touched || isSubmitted)}"
-              placeholder="e.g. Programming Languages">
-            <div *ngIf="skillsForm.get('category')?.invalid && (skillsForm.get('category')?.touched || isSubmitted)">
+              placeholder="e.g. Programming Languages"
+              [attr.aria-invalid]="skillsForm.get('category')?.invalid && (skillsForm.get('category')?.touched || isSubmitted)">
+            <div id="skill-category-error" *ngIf="skillsForm.get('category')?.invalid && (skillsForm.get('category')?.touched || isSubmitted)">
               <span class="error-message" *ngIf="skillsForm.get('category')?.errors?.['required']">Category is required</span>
               <span class="error-message" *ngIf="skillsForm.get('category')?.errors?.['minlength']">Minimum 2 characters</span>
             </div>
           </div>
 
-          <div formArrayName="skill">
-            <div *ngFor="let skill of skills; let i = index" [formGroupName]="i" class="skill-item">
+        <div formArrayName="skill">
+            <div *ngFor="let skill of skills; let i = index" [formGroupName]="i" class="skill-item" #skillItem>
 
               <div class="form-group">
-                <label class="form-label required">Skill Name</label>
-                <input type="text" formControlName="name" class="form-input"
+                <label class="form-label required" [attr.for]="'skill-name-' + i">Skill Name</label>
+                <input [id]="'skill-name-' + i" type="text" formControlName="name" class="form-input"
                   [ngClass]="{'error-border': skill.get('name')?.invalid && (skill.get('name')?.touched || isSubmitted)}"
-                  placeholder="e.g. JavaScript">
+                  placeholder="e.g. JavaScript"
+                  [attr.aria-invalid]="skill.get('name')?.invalid && (skill.get('name')?.touched || isSubmitted)">
                 <div *ngIf="skill.get('name')?.invalid && (skill.get('name')?.touched || isSubmitted)">
                   <span class="error-message" *ngIf="skill.get('name')?.errors?.['required']">Name is required</span>
                   <span class="error-message" *ngIf="skill.get('name')?.errors?.['minlength']">Minimum 2 characters</span>
@@ -35,10 +37,11 @@
               </div>
 
               <div class="form-group">
-                <label class="form-label required">Image URL</label>
-                <input type="text" formControlName="img" class="form-input"
+                <label class="form-label required" [attr.for]="'skill-img-' + i">Image URL</label>
+                <input [id]="'skill-img-' + i" type="text" formControlName="img" class="form-input"
                   [ngClass]="{'error-border': skill.get('img')?.invalid && (skill.get('img')?.touched || isSubmitted)}"
-                  placeholder="Paste image link">
+                  placeholder="Paste image link"
+                  [attr.aria-invalid]="skill.get('img')?.invalid && (skill.get('img')?.touched || isSubmitted)">
                 <div *ngIf="skill.get('img')?.invalid && (skill.get('img')?.touched || isSubmitted)">
                   <span class="error-message" *ngIf="skill.get('img')?.errors?.['required']">Image URL is required</span>
                 </div>
@@ -68,6 +71,6 @@
 </div>
 
 
-<div class="form-actions" routerLink="/dashboard/skills-dashboard">
-    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i> Back</button>
-</div>
+<a class="form-actions btn btn-primary" routerLink="/dashboard/skills-dashboard" aria-label="Back to skills dashboard">
+  <i class="fa-solid fa-arrow-left"></i> Back
+</a>

@@ -10,29 +10,31 @@
         <div class="form-fields">
 
           <div class="form-group">
-            <label class="form-label required">Project Number</label>
-            <input type="text" formControlName="number" class="form-input"
+            <label class="form-label required" for="project-number">Project Number</label>
+            <input id="project-number" type="text" formControlName="number" class="form-input"
               [ngClass]="{'error-border': projectForm.get('number')?.invalid && (projectForm.get('number')?.touched || isSubmitted)}"
-              placeholder="e.g. 01">
+              placeholder="e.g. 01"
+              [attr.aria-invalid]="projectForm.get('number')?.invalid && (projectForm.get('number')?.touched || isSubmitted)">
           </div>
 
           <div class="form-group">
-            <label class="form-label required">Title</label>
-            <input type="text" formControlName="title" class="form-input"
-              placeholder="e.g. Portfolio Website">
+            <label class="form-label required" for="project-title">Title</label>
+            <input id="project-title" type="text" formControlName="title" class="form-input"
+              placeholder="e.g. Portfolio Website"
+              [attr.aria-invalid]="projectForm.get('title')?.invalid && (projectForm.get('title')?.touched || isSubmitted)">
           </div>
 
           <div class="form-group">
-            <label class="form-label">Description</label>
-            <textarea formControlName="description" class="form-input textarea"
+            <label class="form-label" for="project-description">Description</label>
+            <textarea id="project-description" formControlName="description" class="form-input textarea"
               placeholder="Project description..."></textarea>
           </div>
 
           <div formArrayName="technologies">
             <div *ngFor="let tech of technologies.controls; let i = index" class="skill-item" [formGroupName]="i">
               <div class="form-group">
-                <label class="form-label required">Technology</label>
-                <input type="text" formControlName="name" class="form-input" placeholder="e.g. Angular">
+                <label class="form-label required" [attr.for]="'technology-' + i">Technology</label>
+                <input [id]="'technology-' + i" type="text" formControlName="name" class="form-input" placeholder="e.g. Angular" [attr.aria-invalid]="technologies.at(i).get('name')?.invalid && (technologies.at(i).get('name')?.touched || isSubmitted)">
               </div>
               <button type="button" class="btn btn-secondary" (click)="removeTechnology(i)" *ngIf="technologies.length > 1">
                 Remove
@@ -42,18 +44,18 @@
           <button type="button" class="btn btn-secondary" (click)="addTechnology()">+ Add Technology</button>
 
           <div class="form-group mt-3">
-            <label class="form-label required">Project Image</label>
-            <input type="file" (change)="onFileSelected($event)" class="form-input">
+            <label class="form-label required" for="project-image">Project Image</label>
+            <input id="project-image" type="file" (change)="onFileSelected($event)" class="form-input" aria-label="Choose a project image file">
           </div>
 
           <div class="form-group">
-            <label class="form-label">View Project URL</label>
-            <input type="text" formControlName="viewProject" class="form-input" placeholder="e.g. https://...">
+            <label class="form-label" for="project-view">View Project URL</label>
+            <input id="project-view" type="url" formControlName="viewProject" class="form-input" placeholder="e.g. https://..." autocomplete="url">
           </div>
 
           <div class="form-group">
-            <label class="form-label">Open Project URL</label>
-            <input type="text" formControlName="openProject" class="form-input" placeholder="e.g. https://...">
+            <label class="form-label" for="project-open">Open Project URL</label>
+            <input id="project-open" type="url" formControlName="openProject" class="form-input" placeholder="e.g. https://..." autocomplete="url">
           </div>
 
           <div class="form-actions">
@@ -68,6 +70,6 @@
   </div>
 </div>
 
-<div class="form-actions" routerLink="/dashboard/project-dashboard">
-    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i> Back</button>
-</div>
+<a class="form-actions btn btn-primary" routerLink="/dashboard/project-dashboard" aria-label="Back to project dashboard">
+  <i class="fa-solid fa-arrow-left"></i> Back
+</a>

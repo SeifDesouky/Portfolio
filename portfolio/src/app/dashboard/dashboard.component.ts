@@ -1,26 +1,6 @@
 import { Component } from '@angular/core';
 import { GlobalService } from '../services/global.service';
-interface Task {
-  id: number;
-  title: string;
-  time: string;
-  completed: boolean;
-}
-
-interface Project {
-  id: number;
-  name: string;
-  status: 'In Progress' | 'Completed' | 'On Hold';
-  progress: number;
-  color: string;
-}
-
-interface Goal {
-  id: number;
-  title: string;
-  completed: number;
-  total: number;
-}
+import { MenuItem, ProjectEntry, SkillCategory } from '../models/portfolio.models';
 @Component({
   selector: 'app-dashboard',
   standalone: false,
@@ -28,7 +8,7 @@ interface Goal {
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
-   menuItems = [
+   menuItems: MenuItem[] = [
     { name: 'Dashboard', icon: 'dashboard', active: true },
     { name: 'Calendar', icon: 'calendar_today', active: false },
     { name: 'My task', icon: 'task', active: false },
@@ -36,38 +16,39 @@ export class DashboardComponent {
     { name: 'Document', icon: 'description', active: false }
   ];
 
-  projectCount: any
-  projects: any[]=[]
-  skills: any = []
-  skillsCount: any;
-  constructor(private global:GlobalService) {}
+  projectCount = 0;
+  projects: ProjectEntry[] = [];
+  skills: string[] = [];
+  skillsCount = 0;
+
+  constructor(private global: GlobalService) {}
+
+  trackByIndex(index: number): number {
+    return index;
+  }
 
   ngOnInit() {
     this.global.getProjects().subscribe(res => {
-      this.projectCount = res.count
-      this.projects = res.data
-      console.log(this.projects);
+      this.projectCount = res.count;
+      this.projects = res.data;
 
-    })
+    });
     this.global.getSkills().subscribe(res => {
       this.skillsCount = res.count;
 
-      res.data.forEach((ele: any) => {
-        ele.skill.forEach((element:any) => {
-          this.skills.push(element.name)
-
-        });
-      })
-      this.skills=[... new Set(this.skills)]
-    })
+      const skillNames = res.data.flatMap((category: SkillCategory) =>
+        category.skill.map((skill) => skill.name)
+      );
+      this.skills = [...new Set(skillNames)];
+    });
   }
-  onMenuClick(item: any): void {
+
+  onMenuClick(item: MenuItem): void {
     this.menuItems.forEach(menuItem => menuItem.active = false);
     item.active = true;
   }
 
   onCreate(): void {
-    console.log('Create button clicked');
   }
 
 

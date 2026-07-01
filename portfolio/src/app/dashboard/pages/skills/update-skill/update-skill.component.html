@@ -2,6 +2,7 @@
   <div
     class="card from-left overall-info"
     *ngFor="let category of skillsList"
+    [attr.aria-label]="category.category + ' skills category'"
   >
     <div class="card-header">
       <h3>{{ category.category }}</h3>
@@ -25,10 +26,10 @@
     </div>
 
     <div class="card-actions">
-      <button (click)="openEditModal(category); $event.stopPropagation()" class="btn btn-edit">
+      <button type="button" (click)="openEditModal(category); $event.stopPropagation()" class="btn btn-edit" [attr.aria-label]="'Edit ' + category.category">
         <i class="fa-solid fa-pen"></i> Edit
       </button>
-      <button (click)="softDeleteCategory(category._id); $event.stopPropagation()" class="btn btn-delete">
+      <button type="button" (click)="softDeleteCategory(category._id); $event.stopPropagation()" class="btn btn-delete" [attr.aria-label]="'Delete ' + category.category">
         <i class="fa-solid fa-trash"></i> Delete
       </button>
     </div>
@@ -36,23 +37,24 @@
 </div>
 
 <div class="custom-modal-backdrop" *ngIf="isEditModalOpen && skillForm">
-  <div class="custom-modal" role="dialog" aria-modal="true">
+  <div class="custom-modal" role="dialog" aria-modal="true" aria-labelledby="skills-edit-title">
     <div class="modal-header">
-      <h3>Edit Skills Category</h3>
-      <button class="close-btn" (click)="closeEditModal()">×</button>
+      <h3 id="skills-edit-title">Edit Skills Category</h3>
+      <button type="button" class="close-btn" (click)="closeEditModal()" #closeButton aria-label="Close edit dialog">×</button>
     </div>
 
     <form [formGroup]="skillForm" (ngSubmit)="onUpdate()">
       <div class="form-group">
-        <label>Category Name</label>
-        <input type="text" formControlName="category" placeholder="Enter category" />
+        <label for="skill-category">Category Name</label>
+        <input id="skill-category" type="text" formControlName="category" placeholder="Enter category" />
       </div>
 
       <div formArrayName="skill">
         <div *ngFor="let sk of skillArray.controls; let i=index" [formGroupName]="i" class="form-group">
-          <label>Skill {{ i + 1 }}</label>
-          <input type="text" formControlName="name" placeholder="Skill name" />
-          <input type="text" formControlName="img" placeholder="Image URL" />
+          <label class="visually-hidden" [attr.for]="'skill-name-' + i">Skill {{ i + 1 }}</label>
+          <input [id]="'skill-name-' + i" type="text" formControlName="name" placeholder="Skill name" />
+          <label class="visually-hidden" [attr.for]="'skill-img-' + i">Image URL</label>
+          <input [id]="'skill-img-' + i" type="text" formControlName="img" placeholder="Image URL" />
         </div>
       </div>
 
@@ -63,7 +65,6 @@
     </form>
   </div>
 </div>
-<div class="form-actions" routerLink="/dashboard/skills-dashboard">
-    <button type="submit" class="btn1 btn-primary"><i class="fa-solid fa-arrow-left"></i> Back</button>
-</div>
-
+<a class="form-actions btn1 btn-primary" routerLink="/dashboard/skills-dashboard" aria-label="Back to skills dashboard">
+  <i class="fa-solid fa-arrow-left"></i> Back
+</a>

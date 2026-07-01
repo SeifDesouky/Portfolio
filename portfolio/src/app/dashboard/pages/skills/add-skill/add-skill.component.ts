@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { GlobalService } from '../../../../services/global.service';
+import { SkillCategoryFormValue } from '../../../../models/portfolio.models';
 
 @Component({
   selector: 'app-add-skill',
@@ -11,6 +12,7 @@ import { GlobalService } from '../../../../services/global.service';
 export class AddSkillComponent {
    skillsForm!: FormGroup;
   isSubmitted: boolean = false;
+  @ViewChildren('skillItem', { read: ElementRef }) skillItems!: QueryList<ElementRef<HTMLElement>>;
   constructor(private global:GlobalService){}
   ngOnInit() {
     this.skillsForm = new FormGroup({
@@ -44,26 +46,21 @@ export class AddSkillComponent {
 
     skillsArray.push(this.createSkillGroup());
 
-    setTimeout(() => {
-      const lastSkill = document.querySelector('.skill-item:last-child') as HTMLElement;
-        if (lastSkill) {
-        lastSkill.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-  }, 50);
+    requestAnimationFrame(() => {
+      this.skillItems.last?.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
     this.isSubmitted=false
 }
 
 
-  removeSkill(index: any) {
+  removeSkill(index: number) {
     (this.skillsForm.get('skill') as FormArray).removeAt(index)
   }
   onSubmit() {
     this.isSubmitted = true;
     if (this.skillsForm.valid) {
-      console.log(this.skillsForm.value);
-      this.global.addSkill(this.skillsForm.value).subscribe(res => {
-        console.log(res);
-      })
+      const payload = this.skillsForm.getRawValue() as SkillCategoryFormValue;
+      this.global.addSkill(payload).subscribe();
     }
 
   }

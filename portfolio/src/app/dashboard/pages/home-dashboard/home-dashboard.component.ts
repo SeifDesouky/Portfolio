@@ -1,6 +1,8 @@
 import { Component  } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { GlobalService } from '../../../services/global.service';
+import { environment } from '../../../../environments/environment';
+import { HomeContent, HomeFormValue } from '../../../models/portfolio.models';
 @Component({
   selector: 'app-home-dashboard',
   standalone: false,
@@ -9,8 +11,8 @@ import { GlobalService } from '../../../services/global.service';
 })
 export class HomeDashboardComponent {
   homeForm!: FormGroup;
-  staticUrl = 'http://localhost:3000/images/';
-  home: any;
+  staticUrl = `${environment.mediaUrl}/images/`;
+  home: HomeContent | undefined;
   fileName: string = '';
 
   constructor(private global: GlobalService) {}
@@ -55,14 +57,15 @@ export class HomeDashboardComponent {
 
   onSubmit() {
     const formData = new FormData();
+    const payload = this.homeForm.getRawValue() as HomeFormValue;
 
-    formData.append('title', this.homeForm.get('title')?.value);
-    formData.append('description', this.homeForm.get('description')?.value);
-    formData.append('linkdin', this.homeForm.get('linkdin')?.value);
-    formData.append('github', this.homeForm.get('github')?.value);
-    formData.append('instagram', this.homeForm.get('instagram')?.value);
-    formData.append('facebook', this.homeForm.get('facebook')?.value);
-    formData.append('logo', this.homeForm.get('logo')?.value);
+    formData.append('title', payload.title);
+    formData.append('description', payload.description);
+    formData.append('linkdin', payload.linkdin);
+    formData.append('github', payload.github);
+    formData.append('instagram', payload.instagram);
+    formData.append('facebook', payload.facebook);
+    formData.append('logo', payload.logo);
 
     const cvFile = this.homeForm.get('cv')?.value;
     if (cvFile && cvFile instanceof File) {
@@ -73,9 +76,7 @@ export class HomeDashboardComponent {
       formData.append('profileImg', profileImgFile);
     }
 
-    this.roles.value.forEach((role: string, index: number) => {
-      formData.append(`roles[${index}]`, role);
-    });
+    formData.append('roles', JSON.stringify(payload.roles));
 
     this.global.updateHome(formData).subscribe(res => {});
   }

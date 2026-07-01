@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { GlobalService } from '../../../services/global.service';
-import { elementAt } from 'rxjs';
+import { SkillCategory } from '../../../models/portfolio.models';
 
 @Component({
   selector: 'app-skills',
@@ -10,14 +10,17 @@ import { elementAt } from 'rxjs';
 })
 export class SkillsComponent {
   constructor(public global: GlobalService) { }
-  categories: any[] = [];
-  Skills :any = [];
+  categories: string[] = [];
+  skills: SkillCategory[] = [];
+
+  trackByIndex(index: number): number {
+    return index;
+  }
+
   ngOnInit() {
     this.global.getSkills().subscribe(res => {
-      this.Skills = res.data;
-      console.log(this.Skills);
-
-      this.categories = [...new Set(res.data.map((element: any) => element.category))]
-    })
+      this.skills = res.data;
+      this.categories = [...new Set(this.skills.map((element) => element.category))];
+    });
   }
 }

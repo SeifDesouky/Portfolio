@@ -1,13 +1,13 @@
 <section class="skills" id="skills">
   <h2 class="heading">My Skills</h2>
   <div class="skill-info">
-    <div class="skill-category" *ngFor="let cat of Skills">
+    <div class="skill-category" *ngFor="let cat of skills; trackBy: trackByIndex">
       <div class="header">
         <h3>{{cat.category}}</h3>
       </div>
       <div class="skills-icons">
-        <div class="skill-item" *ngFor="let sk of cat.skill">
-          <img [src]="sk.img" alt="">
+        <div class="skill-item" *ngFor="let sk of cat.skill; trackBy: trackByIndex">
+          <img [src]="sk.img" [alt]="sk.name">
           <p>{{sk.name}}</p>
         </div>
       </div>

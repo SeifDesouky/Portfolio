@@ -1,31 +1,31 @@
 <div class="admin-hero">
   <div class="overlay"></div>
   <div class="hero-content">
-    <h1 class="hero-title">Welcome Back, <span class="highlight">Admin</span> 👋</h1>
+    <h1 class="hero-title">Welcome Back, <span class="highlight">Admin</span></h1>
     <p class="hero-subtitle">
       Ready to take control? Let’s manage your projects, messages and skills today 🚀
     </p>
-    <div class="hero-stats">
+  <div class="hero-stats">
   <div class="stat-card fade-in delay-1">
-    <i class="fa-solid fa-diagram-project stat-icon"></i>
+    <i class="fa-solid fa-diagram-project stat-icon" aria-hidden="true"></i>
     <h3>{{projectCount}}</h3>
     <p>Projects Created</p>
   </div>
 
   <div class="stat-card fade-in delay-2">
-    <i class="fa-solid fa-lightbulb stat-icon"></i>
+    <i class="fa-solid fa-lightbulb stat-icon" aria-hidden="true"></i>
     <h3>{{skillsCount}}</h3>
     <p>Skills</p>
   </div>
 
   <div class="stat-card fade-in delay-3">
-    <i class="fa-solid fa-envelope stat-icon"></i>
+    <i class="fa-solid fa-envelope stat-icon" aria-hidden="true"></i>
     <h3>{{messsageCount}}</h3>
     <p>Messages</p>
   </div>
 </div>
 
 
-    <button class="hero-btn">Go To Dashboard</button>
+    <a class="hero-btn" routerLink="/dashboard" aria-label="Go to dashboard">Go To Dashboard</a>
   </div>
 </div>

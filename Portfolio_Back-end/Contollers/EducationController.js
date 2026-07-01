@@ -29,7 +29,9 @@ const updateEducation = async (req, res) => {
         const updated = req.body;
         const id = req.params.id;
         const updatedEducation = await Education.findByIdAndUpdate(id, updated,{new:true})
-        await updatedEducation.save()
+        if (!updatedEducation) {
+            return res.status(404).json({ message: "Education not found" });
+        }
         res.status(200).json({
             data: updatedEducation,
             message:"Education updated successfully"
@@ -43,9 +45,12 @@ const softDelete = async (req, res) => {
     try {
         const id = req.params.id;
         const updated = await Education.findByIdAndUpdate(id, { isDeleted: true }, { new: true });
+        if (!updated) {
+            return res.status(404).json({ message: "Education not found" });
+        }
         res.status(200).json(updated)
     } catch (error) {
-        res.status(500).json(err)
+        res.status(500).json({ error: error.message })
     }
 }
 module.exports = { getEduction, addEducation, updateEducation,  softDelete};

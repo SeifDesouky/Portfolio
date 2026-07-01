@@ -8,20 +8,21 @@ import { GlobalService } from '../../../services/global.service';
   styleUrl: './welcome-page.component.css'
 })
 export class WelcomePageComponent {
-  projectCount: any
-  skillsCount: any;
-  messsageCount: any;
+  projectCount = 0;
+  skillsCount = 0;
+  messsageCount = 0;
+
   constructor(private global:GlobalService) {}
 
   ngOnInit() {
     this.global.getProjects().subscribe(res => {
-      this.projectCount = res.count
-    })
+      this.projectCount = res.count;
+    });
     this.global.getSkills().subscribe(res => {
       this.skillsCount = res.count;
-    })
+    });
     this.global.getComment().subscribe(res => {
-      this.messsageCount=res.count
-    })
+      this.messsageCount = res.count;
+    });
   }
 }

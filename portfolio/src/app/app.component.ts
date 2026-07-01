@@ -10,8 +10,10 @@ export class AppComponent {
   title = 'portfolio';
   ngOnInit(): void {
     AOS.init({
-      duration: 1000, // مدة الأنيميشن
-      once: true      // يشتغل مرة واحدة بس
+      duration: 700,
+      once: true,
+      easing: 'ease-out',
+      disable: window.matchMedia('(prefers-reduced-motion: reduce)').matches
     });
   }
 }

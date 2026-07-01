@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, HostListener, QueryList, ViewChildren } from '@angular/core';
 import { GlobalService } from '../../../services/global.service';
+import { environment } from '../../../../environments/environment';
+import { ProjectEntry } from '../../../models/portfolio.models';
 
 @Component({
   selector: 'app-projects',
@@ -9,10 +11,21 @@ import { GlobalService } from '../../../services/global.service';
 })
 export class ProjectsComponent {
 
-  projects: any[] = [];
+  projects: ProjectEntry[] = [];
   currentIndex = 0;
-  projectImg = 'http://localhost:3000/projectImg/';
+  isTransitioning = false;
+  transitionDirection: 'next' | 'prev' = 'next';
+  private transitionTimer: ReturnType<typeof setTimeout> | null = null;
+  private swipeStartX: number | null = null;
+  projectImg = `${environment.mediaUrl}/projectImg/`;
+  @ViewChildren('fadeUp', { read: ElementRef }) animatedElements!: QueryList<ElementRef<HTMLElement>>;
+
   constructor(private global: GlobalService) {}
+
+  trackByIndex(index: number): number {
+    return index;
+  }
+
   ngOnInit() {
     this.global.getProjects().subscribe(res => {
       this.projects = res.data;
@@ -20,43 +33,109 @@ export class ProjectsComponent {
     });
   }
 
-  get currentProject() {
+  get currentProject(): ProjectEntry | undefined {
     return this.projects[this.currentIndex];
   }
 
-onOpenProject(): void {
-  if (this.currentProject?.viewProject) {
-    window.open(this.currentProject.viewProject, '_blank');
-  } else {
-    console.warn('No project URL available');
+  onOpenProject(): void {
+    if (this.currentProject?.viewProject) {
+      window.open(this.currentProject.viewProject, '_blank', 'noopener,noreferrer');
+    } else {
+      console.warn('No project URL available');
+    }
   }
-}
 
-onOpenGithub(): void {
-  if (this.currentProject?.openProject) {
-    window.open(this.currentProject.openProject, '_blank');
-  } else {
-    console.warn('No GitHub URL available');
+  onOpenGithub(): void {
+    if (this.currentProject?.openProject) {
+      window.open(this.currentProject.openProject, '_blank', 'noopener,noreferrer');
+    } else {
+      console.warn('No GitHub URL available');
+    }
   }
-}
-resetAnimation(): void {
-  const animatedElements = document.querySelectorAll('.fade-up');
-  animatedElements.forEach(el => {
-    el.classList.remove('fade-up');
-    void (el as HTMLElement).offsetWidth;
-    el.classList.add('fade-up');
-  });
-}
 
-onNextProject(): void {
-  this.currentIndex = (this.currentIndex + 1) % this.projects.length;
-  this.resetAnimation();
-}
+  private resetAnimation(): void {
+    this.animatedElements?.forEach((el) => {
+      el.nativeElement.classList.remove('fade-up');
+      void el.nativeElement.offsetWidth;
+      el.nativeElement.classList.add('fade-up');
+    });
+  }
 
-onPreviousProject(): void {
-  this.currentIndex =
-    this.currentIndex > 0 ? this.currentIndex - 1 : this.projects.length - 1;
-  this.resetAnimation();
-}
+  private setIndex(nextIndex: number, direction: 'next' | 'prev'): void {
+    if (!this.projects.length) {
+      return;
+    }
+
+    this.transitionDirection = direction;
+    this.isTransitioning = true;
+    this.currentIndex = nextIndex;
+    this.resetAnimation();
+
+    if (this.transitionTimer) {
+      clearTimeout(this.transitionTimer);
+    }
+
+    this.transitionTimer = setTimeout(() => {
+      this.isTransitioning = false;
+    }, 220);
+  }
+
+  onNextProject(): void {
+    if (!this.projects.length) {
+      return;
+    }
+
+    const nextIndex = (this.currentIndex + 1) % this.projects.length;
+    this.setIndex(nextIndex, 'next');
+  }
+
+  onPreviousProject(): void {
+    if (!this.projects.length) {
+      return;
+    }
+
+    const previousIndex =
+      this.currentIndex > 0 ? this.currentIndex - 1 : this.projects.length - 1;
+    this.setIndex(previousIndex, 'prev');
+  }
+
+  onPointerDown(event: PointerEvent): void {
+    this.swipeStartX = event.clientX;
+  }
+
+  onPointerUp(event: PointerEvent): void {
+    if (this.swipeStartX === null) {
+      return;
+    }
+
+    const deltaX = event.clientX - this.swipeStartX;
+    this.swipeStartX = null;
+
+    if (Math.abs(deltaX) < 48) {
+      return;
+    }
+
+    if (deltaX < 0) {
+      this.onNextProject();
+    } else {
+      this.onPreviousProject();
+    }
+  }
+
+  @HostListener('window:keydown.arrowleft')
+  onArrowLeft(): void {
+    this.onPreviousProject();
+  }
+
+  @HostListener('window:keydown.arrowright')
+  onArrowRight(): void {
+    this.onNextProject();
+  }
+
+  ngOnDestroy(): void {
+    if (this.transitionTimer) {
+      clearTimeout(this.transitionTimer);
+    }
+  }
 
 }

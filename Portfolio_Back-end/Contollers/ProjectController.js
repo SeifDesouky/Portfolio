@@ -1,7 +1,7 @@
 const Project = require('../Models/ProjectModel');
 
 const getProject = async (req, res) => {
-    const projects = await Project.find();    
+    const projects = await Project.find({ isDeleted: { $ne: true } });
     res.status(200).json({data:projects,count:projects.length})
 }
 
@@ -44,6 +44,9 @@ const updateProject = async (req, res) => {
         }
 
         const updated = await Project.findByIdAndUpdate(req.params.id, updateData, { new: true });
+        if (!updated) {
+            return res.status(404).json({ message: "Project not found" });
+        }
         res.status(200).json({ message: "Project updated", data: updated });
     } catch (err) {
         res.status(500).json({ message: "Something went wrong" });
@@ -52,11 +55,14 @@ const updateProject = async (req, res) => {
 
 const deleteProject = async (req, res) => {
     try {
-        await Project.findByIdAndUpdate(
+        const deleted = await Project.findByIdAndUpdate(
             req.params.id,
             { isDeleted: true },
             { new: true }
         );
+        if (!deleted) {
+            return res.status(404).json({ message: "Project not found" });
+        }
         res.status(200).json({ message: "Project soft deleted" });
     } catch (err) {
         res.status(500).json({ message: "Something went wrong" });

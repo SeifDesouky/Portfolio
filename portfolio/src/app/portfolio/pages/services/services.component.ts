@@ -1,27 +1,25 @@
-import { AfterViewInit, Component, ElementRef, NgZone, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, NgZone, QueryList, ViewChildren } from '@angular/core';
 import { GlobalService } from '../../../services/global.service';
-import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
-
-interface Service {
-icon: string;
-title: string;
-tagline: string;
-bullets: string[];
-cta?: string;
-isDeleted:boolean
-}
+import { ServiceEntry } from '../../../models/portfolio.models';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-services',
   standalone: false,
   templateUrl: './services.component.html',
-  styleUrl: './services.component.css',
+  styleUrl: './services.component.css'
 })
 export class ServicesComponent {
   loading = true;
-  services: Service[] = [];
+  services: ServiceEntry[] = [];
+  @ViewChildren('serviceCard', { read: ElementRef }) serviceCards!: QueryList<ElementRef<HTMLElement>>;
+  private observer?: IntersectionObserver;
+  private cardsChangesSub?: Subscription;
+
+  trackByIndex(index: number): number {
+    return index;
+  }
 
   constructor(
-    private host: ElementRef,
     private global: GlobalService,
     private ngZone: NgZone
   ) {}
@@ -29,12 +27,10 @@ export class ServicesComponent {
   ngOnInit(): void {
     this.global.getServices().subscribe({
       next: (data) => {
-        this.services = data.filter( (d:Service)=>!d.isDeleted);
-        console.log('Services from API:', this.services);
+        this.services = data.data.filter((d) => !d.isDeleted);
         this.loading = false;
       },
-      error: (err) => {
-        console.error('Error fetching services:', err);
+      error: () => {
         this.loading = false;
       },
     });
@@ -42,13 +38,13 @@ export class ServicesComponent {
 
   ngAfterViewInit(): void {
     this.ngZone.runOutsideAngular(() => {
-      const observer = new IntersectionObserver(
+      this.observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               this.ngZone.run(() => {
                 entry.target.classList.add('reveal-in');
-                observer.unobserve(entry.target);
+                this.observer?.unobserve(entry.target);
               });
             }
           });
@@ -56,13 +52,22 @@ export class ServicesComponent {
         { root: null, threshold: 0.15 }
       );
 
-      const cards: NodeListOf<HTMLElement> =
-        this.host.nativeElement.querySelectorAll('.service-card');
-
-      cards.forEach((el, i) => {
-        el.style.transitionDelay = `${i * 90}ms`;
-        observer.observe(el);
-      });
+      this.cardsChangesSub = this.serviceCards.changes.subscribe(() => this.observeCards());
+      this.observeCards();
     });
+  }
+
+  private observeCards(): void {
+    if (!this.observer) return;
+
+    this.serviceCards?.forEach((card, i) => {
+      card.nativeElement.style.transitionDelay = `${i * 90}ms`;
+      this.observer?.observe(card.nativeElement);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.cardsChangesSub?.unsubscribe();
+    this.observer?.disconnect();
   }
 }

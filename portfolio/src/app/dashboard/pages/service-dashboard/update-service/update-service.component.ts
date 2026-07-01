@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { GlobalService } from '../../../../services/global.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { ServiceEntry, ServiceFormValue, ServiceRequest } from '../../../../models/portfolio.models';
 
 @Component({
   selector: 'app-update-service',
@@ -10,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './update-service.component.css'
 })
 export class UpdateServiceComponent {
-  services: any[] = [];
+  services: ServiceEntry[] = [];
   editingId: string | null = null;
 
   constructor(
@@ -32,7 +33,7 @@ export class UpdateServiceComponent {
 
   loadServices() {
     this.global.getServices().subscribe({
-      next: (res) => this.services = res,
+      next: (res) => this.services = res.data,
       error: () => this.toastr.error('Failed to load services', 'Error')
     });
   }
@@ -49,7 +50,7 @@ export class UpdateServiceComponent {
     }
   }
 
-  onEdit(service: any) {
+  onEdit(service: ServiceEntry) {
     this.editingId = service._id;
     this.editForm.patchValue({
       title: service.title,
@@ -62,13 +63,17 @@ export class UpdateServiceComponent {
 
   saveEdit() {
     if (this.editForm.valid && this.editingId) {
-      const data = { ...this.editForm.value };
-      if (data.bullets) {
-        data.bullets = (data.bullets as string).split(',').map(b => b.trim());
-      }
+      const data = this.editForm.getRawValue() as ServiceFormValue;
+      const payload: ServiceRequest = {
+        title: data.title,
+        tagline: data.tagline,
+        bullets: data.bullets ? data.bullets.split(',').map((b) => b.trim()) : [],
+        icon: data.icon,
+        cta: data.cta,
+      };
 
-      this.global.updateService(this.editingId, data).subscribe({
-        next: (res) => {
+      this.global.updateService(this.editingId, payload).subscribe({
+        next: () => {
           this.toastr.success('Service updated successfully!', 'Updated');
           this.editingId = null;
           this.loadServices();

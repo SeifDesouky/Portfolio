@@ -7,9 +7,9 @@
 .heading {
   font-size: clamp(2.8rem, 5vw, 4.5rem);
   text-align: center;
-  color: #00ffee;
+  color: var(--color-accent);
   margin-bottom: 4rem;
-  text-shadow: 0 0 25px rgba(0, 255, 238, 0.8);
+  text-shadow: 0 0 25px rgba(var(--ds-color-accent-rgb), 0.8);
   letter-spacing: 2px;
   position: relative;
 }
@@ -19,10 +19,10 @@
   display: block;
   width: 80px;
   height: 4px;
-  background: #00ffee;
+  background: var(--color-accent);
   margin: 1rem auto 0;
   border-radius: 2px;
-  box-shadow: 0 0 15px #00ffee;
+  box-shadow: 0 0 15px var(--color-accent);
 }
 
 /* ✨ نصين جنب بعض */
@@ -37,27 +37,27 @@
 
 .skill-category {
   flex: 1 1 45%;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-surface-glass);
   padding: 2.5rem;
   border-radius: 1.5rem;
-  border: 1px solid rgba(0, 255, 238, 0.4);
+  border: 1px solid rgba(var(--ds-color-accent-rgb), 0.4);
   backdrop-filter: blur(15px);
-  box-shadow: 0 0 25px rgba(0, 255, 238, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 25px rgba(var(--ds-color-accent-rgb), 0.2);
+  transition: transform var(--ds-duration-base) var(--ds-ease-standard), box-shadow var(--ds-duration-base) var(--ds-ease-standard);
 }
 
 .skill-category:hover {
   transform: translateY(-8px);
-  box-shadow: 0 0 40px rgba(0, 255, 238, 0.4);
+  box-shadow: 0 0 40px rgba(var(--ds-color-accent-rgb), 0.4);
 }
 
 .header h3 {
   text-align: center;
-  color: #fff;
+  color: var(--color-text-100);
   margin-bottom: 2rem;
   font-size: 1.8rem;
   letter-spacing: 1px;
-  text-shadow: 0 0 15px rgba(0, 255, 238, 0.7);
+  text-shadow: 0 0 15px rgba(var(--ds-color-accent-rgb), 0.7);
 }
 
 /* skills جوا كل كاتيجوري */
@@ -71,14 +71,14 @@
 .skill-item {
   width: 120px;
   height: 120px;
-  background: linear-gradient(145deg, rgba(0, 255, 238, 0.1), rgba(0, 255, 238, 0.03));
-  border: 2px solid rgba(0, 255, 238, 0.5);
+  background: linear-gradient(145deg, rgba(var(--ds-color-accent-rgb), 0.1), rgba(var(--ds-color-accent-rgb), 0.03));
+  border: 2px solid rgba(var(--ds-color-accent-rgb), 0.5);
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  transition: all 0.35s ease;
+  transition: all var(--ds-duration-base) var(--ds-ease-standard);
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -90,7 +90,7 @@
   position: absolute;
   width: 150%;
   height: 150%;
-  background: radial-gradient(circle, rgba(0, 255, 238, 0.25), transparent 70%);
+  background: radial-gradient(circle, rgba(var(--ds-color-accent-rgb), 0.25), transparent 70%);
   top: -50%;
   left: -50%;
   transform: rotate(25deg);
@@ -104,7 +104,7 @@
 
 .skill-item:hover {
   transform: scale(1.15) rotate(8deg);
-  box-shadow: 0 0 40px rgba(0, 255, 238, 0.8);
+  box-shadow: 0 0 40px rgba(var(--ds-color-accent-rgb), 0.8);
 }
 
 .skill-item img {
@@ -119,11 +119,11 @@
 }
 
 .skill-item p {
-  color: #00ffee;
+  color: var(--color-accent);
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: var(--fw-semibold);
   z-index: 1;
-  text-shadow: 0 0 10px rgba(0, 255, 238, 0.8);
+  text-shadow: 0 0 10px rgba(var(--ds-color-accent-rgb), 0.8);
 }
 
 /* 📱 موبايل */

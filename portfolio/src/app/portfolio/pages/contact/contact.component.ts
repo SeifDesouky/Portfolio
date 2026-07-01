@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
@@ -6,6 +6,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 import { GlobalService } from '../../../services/global.service';
 import { ToastrService } from 'ngx-toastr';
+import { ContactFormValue } from '../../../models/portfolio.models';
 
 @Component({
   selector: 'app-contact',
@@ -14,11 +15,11 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './contact.component.css'
 })
 export class ContactComponent implements AfterViewInit, OnDestroy {
-isSubmitted:boolean=false
+  isSubmitted = false;
   myForm: FormGroup = new FormGroup({
-    name:new FormControl('',[Validators.required]),
-    msg:new FormControl('',[Validators.required]),
-    email:new FormControl('',[Validators.required,Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]),
+    name: new FormControl('', [Validators.required]),
+    msg: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]),
   })
 
   constructor(private global:GlobalService,private toaster:ToastrService){}
@@ -29,7 +30,8 @@ onSubmit() {
     return;
   }
 
-  this.global.addComment(this.myForm.value).subscribe({
+  const payload = this.myForm.getRawValue() as ContactFormValue;
+  this.global.addComment(payload).subscribe({
     next: (res) => {
       this.toaster.success(res.message);
       this.myForm.reset();
@@ -52,6 +54,7 @@ get f() { return this.myForm.controls; }
   private camera!: THREE.PerspectiveCamera;
   private controls!: OrbitControls;
   private frameId: number | null = null;
+  private model?: THREE.Object3D;
 
   ngAfterViewInit(): void {
     this.initThree();
@@ -59,16 +62,20 @@ get f() { return this.myForm.controls; }
     window.addEventListener('resize', this.onWindowResize);
   }
 
-ngOnDestroy(): void {
-  if (this.frameId) cancelAnimationFrame(this.frameId);
-  window.removeEventListener('resize', this.onWindowResize);
-  this.renderer.dispose();
-  this.scene.traverse((obj: any) => {
-    if (obj.isMesh) {
-      obj.geometry.dispose();
-      if (obj.material.isMaterial) obj.material.dispose();
-    }
-  });
+  ngOnDestroy(): void {
+    if (this.frameId) cancelAnimationFrame(this.frameId);
+    window.removeEventListener('resize', this.onWindowResize);
+    this.renderer?.dispose();
+    this.scene?.traverse((obj) => {
+      if (obj instanceof THREE.Mesh) {
+        obj.geometry.dispose();
+        if (Array.isArray(obj.material)) {
+          obj.material.forEach((material) => material.dispose());
+        } else {
+          obj.material.dispose();
+        }
+      }
+    });
 }
 
 
@@ -113,12 +120,15 @@ ngOnDestroy(): void {
   const model = gltf.scene;
   model.scale.set(1.5, 1.5, 1.5);
 
-  model.traverse((child: any) => {
-    if (child.isMesh && child.material) {
-      child.material.envMapIntensity = 2.0;
-      child.material.emissive = new THREE.Color(0x00ffee);
-      child.material.emissiveIntensity = 0.8;
-      child.material.needsUpdate = true;
+  model.traverse((child) => {
+    if (child instanceof THREE.Mesh) {
+      const material = child.material;
+      if (!Array.isArray(material) && 'envMapIntensity' in material) {
+        material.envMapIntensity = 2.0;
+        material.emissive = new THREE.Color(0x00ffee);
+        material.emissiveIntensity = 0.8;
+        material.needsUpdate = true;
+      }
     }
   });
   const blueLight = new THREE.DirectionalLight(0x00ffee, 5);
@@ -130,7 +140,7 @@ ngOnDestroy(): void {
   model.position.sub(center);
 
   this.scene.add(model);
-  (this as any)._model = model;
+  this.model = model;
 });
 
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
@@ -142,8 +152,9 @@ ngOnDestroy(): void {
 
   private startAnimationLoop = () => {
     const animate = () => {
-      const model = (this as any)._model as THREE.Object3D;
-      if (model) model.rotation.y += 0.003;
+      if (this.model) {
+        this.model.rotation.y += 0.003;
+      }
       this.controls.update();
       this.renderer.render(this.scene, this.camera);
       this.frameId = requestAnimationFrame(animate);

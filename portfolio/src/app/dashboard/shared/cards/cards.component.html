@@ -1,23 +1,32 @@
 <div class="dashboard-grid">
-  <div class="card from-left overall-info" appTilt [routerLink]="componentInfo.addRoute">
+  <a
+    class="card from-left overall-info"
+    appTilt
+    [routerLink]="componentInfo.addRoute"
+    [attr.aria-label]="'Add ' + componentInfo.name"
+  >
     <div class="card-header">
-      <h3>{{componentInfo.name}}</h3>
+      <h3>{{ componentInfo.name }}</h3>
     </div>
     <div class="stat-item primary">
       <div class="stat-label">Add {{componentInfo.name}}</div>
       <div class="stat-number"><i class="fa-solid fa-plus"></i></div>
     </div>
-  </div>
+  </a>
 
-  <div class="card from-right overall-info" appTilt [routerLink]="componentInfo.updateRoute">
+  <a
+    class="card from-right overall-info"
+    appTilt
+    [routerLink]="componentInfo.updateRoute"
+    [attr.aria-label]="'Edit ' + componentInfo.name"
+  >
     <div class="card-header">
-      <h3>{{componentInfo.name}}</h3>
+      <h3>{{ componentInfo.name }}</h3>
     </div>
     <div class="stat-item primary">
       <div class="stat-label">Edit {{componentInfo.name}}</div>
       <div class="stat-number"><i class="fa-solid fa-pen-to-square"></i></div>
     </div>
-  </div>
+  </a>
 </div>
-
 

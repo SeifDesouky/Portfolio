@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { GlobalService } from '../../../../services/global.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { EducationFormValue } from '../../../../models/portfolio.models';
 
 @Component({
   selector: 'app-add-education',
@@ -31,15 +32,14 @@ export class AddEducationComponent {
       return;
     }
 
-    this.global.addEducation(this.eduForm.value).subscribe({
-      next: (res: any) => {
-        console.log(res);
+    const payload = this.eduForm.getRawValue() as EducationFormValue;
+    this.global.addEducation(payload).subscribe({
+      next: (res) => {
         this.toaster.success(res.message);
         this.eduForm.reset();
         this.isSubmitted = false;
       },
-      error: (err) => {
-        console.error(err);
+      error: () => {
         this.toaster.error('Something went wrong, please try again');
       }
     });

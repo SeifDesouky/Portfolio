@@ -3,13 +3,13 @@
 .admin-hero {
   position: relative;
   padding: 80px 20px;
-  border-radius: 24px;
+  border-radius: var(--radius-2xl);
   margin-top: 40px;
   overflow: hidden;
-  background: linear-gradient(135deg, #00ffee, #131313, #00ccb9);
+  background: linear-gradient(135deg, var(--color-accent), var(--color-bg-800), #00ccb9);
   background-size: 400% 400%;
   animation: gradientBG 8s ease infinite;
-  color: white;
+  color: var(--color-text-100);
   text-align: center;
 }
 
@@ -34,34 +34,34 @@
 .hero-title {
   font-size: 42px;
   font-weight: 800;
-  margin-bottom: 16px;
-  animation: slideDown 1s ease forwards;
+  margin-bottom: var(--space-4);
+  animation: slideDown var(--ds-duration-base) var(--ds-ease-standard) forwards;
 }
 
 .hero-title .highlight {
-  color: var(--accent-color);
+  color: var(--color-accent);
 }
 
 .hero-subtitle {
   font-size: 18px;
-  color: var(--text-secondary);
-  margin-bottom: 40px;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-8);
   animation: fadeIn 1.5s ease forwards;
 }
 
 .hero-stats {
   display: flex;
   justify-content: center;
-  gap: 24px;
+  gap: var(--space-6);
   flex-wrap: wrap;
-  margin-bottom: 40px;
+  margin-bottom: var(--space-8);
 }
 
 .stat-card {
   background: rgba(0, 0, 0, 0.4);
-  border: 1px solid var(--accent-color);
-  border-radius: 16px;
-  padding: 20px 30px;
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5) var(--space-7);
   min-width: 150px;
   text-align: center;
   transform: translateY(30px);
@@ -69,32 +69,32 @@
 }
 
 .stat-card h3 {
-  font-size: 28px;
-  color: var(--accent-color);
-  margin-bottom: 8px;
+  font-size: var(--fs-3xl);
+  color: var(--color-accent);
+  margin-bottom: var(--space-2);
 }
 
 .stat-card p {
-  font-size: 14px;
-  color: var(--text-primary);
+  font-size: var(--fs-sm);
+  color: var(--color-text-100);
 }
 
 .hero-btn {
-  background: var(--accent-color);
-  color: var(--bg-primary);
+  background: var(--color-accent);
+  color: var(--color-bg-800);
   padding: 14px 36px;
   font-size: 16px;
   border: none;
   border-radius: 30px;
-  font-weight: 600;
+  font-weight: var(--fw-semibold);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: var(--ds-transition-base);
 }
 
 .hero-btn:hover {
   transform: translateY(-4px) scale(1.05);
   background: #00ccb9;
-  box-shadow: 0 8px 20px rgba(0, 255, 238, 0.5);
+  box-shadow: 0 8px 20px rgba(var(--ds-color-accent-rgb), 0.5);
 }
 
 /* Animations */
@@ -122,6 +122,6 @@
 .delay-3 { animation-delay: 1.3s; }
 .stat-icon {
   font-size: 2rem;
-  color: #00ffee; /* ممكن تغير اللون */
+  color: var(--color-accent);
   margin-bottom: 10px;
 }

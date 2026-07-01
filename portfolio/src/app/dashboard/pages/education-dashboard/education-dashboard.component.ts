@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { GlobalService } from '../../../services/global.service';
+import { DashboardCardInfo } from '../../../models/portfolio.models';
 
 @Component({
   selector: 'app-education-dashboard',
@@ -9,7 +8,7 @@ import { GlobalService } from '../../../services/global.service';
   styleUrl: './education-dashboard.component.css'
 })
 export class EducationDashboardComponent {
-    componentInfo = {
+    componentInfo: DashboardCardInfo = {
     name: 'Education',
     icon: 'description',
     active: false,

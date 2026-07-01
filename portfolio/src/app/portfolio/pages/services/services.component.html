@@ -1,4 +1,4 @@
- <section class="services-section" id="service">
+<section class="services-section" id="service">
   <div class="container">
     <div class="heading">
       <h2 >Services</h2>
@@ -10,7 +10,7 @@
     </div>
 
     <div class="cards-grid">
-      <article class="service-card" *ngFor="let s of services">
+      <article class="service-card" *ngFor="let s of services; trackBy: trackByIndex" #serviceCard [attr.aria-label]="s.title">
         <div class="icon">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path stroke="currentColor" stroke-width="2" fill="none"  [attr.d]="s.icon" />
@@ -19,9 +19,9 @@
         <h3>{{ s.title }}</h3>
         <p class="tagline">{{ s.tagline }}</p>
         <ul>
-          <li *ngFor="let b of s.bullets">{{ b }}</li>
+          <li *ngFor="let b of s.bullets; trackBy: trackByIndex">{{ b }}</li>
         </ul>
-        <button class="cta">{{ s.cta }}</button>
+        <button type="button" class="cta" [attr.aria-label]="s.cta + ' for ' + s.title">{{ s.cta }}</button>
       </article>
     </div>
 
@@ -30,8 +30,7 @@
         <h3>Have an idea? Let’s build it together.</h3>
         <p>I’ll take care of everything from start to finish.</p>
       </div>
-      <a class="cta-primary" href="#contact">Get a Free Quote</a>
+      <a class="cta-primary" href="#contact" aria-label="Jump to contact section">Get a Free Quote</a>
     </div>
   </div>
 </section>
-

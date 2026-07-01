@@ -1,8 +1,9 @@
 <div class="services-grid">
-  <div
+  <article
     class="service-card"
     *ngFor="let s of services"
-    [class.deleted]="s.deleted"
+    [class.deleted]="s.isDeleted"
+    [attr.aria-label]="s.title"
   >
     <div class="card-content">
       <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -17,25 +18,29 @@
     </div>
 
     <div class="actions" *ngIf="editingId !== s._id">
-      <button class="neon-btn blue" (click)="onEdit(s)">✎ Update</button>
-      <button *ngIf="!s.isDeleted" class="neon-btn red" (click)="onDelete(s._id)">✖ Delete</button>
-      <button *ngIf="s.isDeleted" class="neon-btn green" (click)="onRestore(s._id)">⟳ Restore</button>
+      <button type="button" class="neon-btn blue" (click)="onEdit(s)" [attr.aria-label]="'Update ' + s.title">✎ Update</button>
+      <button type="button" *ngIf="!s.isDeleted" class="neon-btn red" (click)="onDelete(s._id)" [attr.aria-label]="'Delete ' + s.title">✖ Delete</button>
+      <button type="button" *ngIf="s.isDeleted" class="neon-btn green" (click)="onRestore(s._id)" [attr.aria-label]="'Restore ' + s.title">⟳ Restore</button>
     </div>
 
     <div class="edit-form" *ngIf="editingId === s._id">
       <form [formGroup]="editForm" (ngSubmit)="saveEdit()">
-        <input formControlName="title" placeholder="Title" />
-        <input formControlName="tagline" placeholder="Tagline" />
-        <input formControlName="bullets" placeholder="Bullets" />
-        <input formControlName="icon" placeholder="Icon URL" />
-        <input formControlName="cta" placeholder="CTA" />
+        <label class="visually-hidden" for="service-title">Title</label>
+        <input id="service-title" formControlName="title" placeholder="Title" />
+        <label class="visually-hidden" for="service-tagline">Tagline</label>
+        <input id="service-tagline" formControlName="tagline" placeholder="Tagline" />
+        <label class="visually-hidden" for="service-bullets">Bullets</label>
+        <input id="service-bullets" formControlName="bullets" placeholder="Bullets" />
+        <label class="visually-hidden" for="service-icon">Icon URL</label>
+        <input id="service-icon" formControlName="icon" placeholder="Icon URL" />
+        <label class="visually-hidden" for="service-cta">CTA</label>
+        <input id="service-cta" formControlName="cta" placeholder="CTA" />
         <button type="submit" class="neon-btn green">💾 Save</button>
         <button type="button" class="neon-btn yellow" (click)="cancelEdit()">✖ Cancel</button>
       </form>
     </div>
-  </div>
+  </article>
 </div>
-<div class="form-actions" routerLink="/dashboard/service-dashboard">
-    <button type="submit" class="btn1 btn-primary"><i class="fa-solid fa-arrow-left"></i> Back</button>
-</div>
-
+<a class="form-actions btn1 btn-primary" routerLink="/dashboard/service-dashboard" aria-label="Back to service dashboard">
+  <i class="fa-solid fa-arrow-left"></i> Back
+</a>

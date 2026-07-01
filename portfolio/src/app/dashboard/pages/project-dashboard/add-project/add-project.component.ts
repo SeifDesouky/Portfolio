@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { GlobalService } from '../../../../services/global.service';
 import { ToastrService } from 'ngx-toastr';
+import { ProjectFormValue } from '../../../../models/portfolio.models';
 
 @Component({
   selector: 'app-add-project',
@@ -12,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 export class AddProjectComponent {
   projectForm!: FormGroup;
   isSubmitted = false;
-  selectedFile!: File;
+  selectedFile: File | null = null;
 
   constructor(private gloabl:GlobalService,private toaster:ToastrService) {}
 
@@ -45,8 +46,9 @@ export class AddProjectComponent {
     this.technologies.removeAt(index);
   }
 
-  onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.selectedFile = input.files?.[0] ?? null;
   }
 
   onSubmit() {
@@ -54,21 +56,22 @@ export class AddProjectComponent {
     if (this.projectForm.invalid) return;
 
     const formData = new FormData();
-    formData.append('number', this.projectForm.value.number);
-    formData.append('title', this.projectForm.value.title);
-    formData.append('description', this.projectForm.value.description);
-    formData.append('technologies', JSON.stringify(this.projectForm.value.technologies.map((t: any) => t.name)));
-    formData.append('viewProject', this.projectForm.value.viewProject);
-    formData.append('openProject', this.projectForm.value.openProject);
+    const payload = this.projectForm.getRawValue() as ProjectFormValue;
+    formData.append('number', payload.number);
+    formData.append('title', payload.title);
+    formData.append('description', payload.description);
+    formData.append('technologies', JSON.stringify(payload.technologies.map((t) => t.name)));
+    formData.append('viewProject', payload.viewProject);
+    formData.append('openProject', payload.openProject);
 
     if (this.selectedFile) {
       formData.append('projectImg', this.selectedFile);
     }
 
     this.gloabl.addProject(formData).subscribe({
-      next: (res: any) => {
+      next: (res) => {
         this.toaster.success(res.message);
-        this.projectForm.reset()
+        this.projectForm.reset();
       },
       error: () => {
         this.toaster.error('Something went wrong');

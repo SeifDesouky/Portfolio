@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DashboardCardInfo } from '../../../models/portfolio.models';
 
 @Component({
   selector: 'app-service-dashboard',
@@ -7,7 +8,7 @@ import { Component } from '@angular/core';
   styleUrl: './service-dashboard.component.css'
 })
 export class ServiceDashboardComponent {
-  componentInfo = {
+  componentInfo: DashboardCardInfo = {
     name: 'Services',
     icon: 'description',
     active: false,

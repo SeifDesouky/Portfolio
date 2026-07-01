@@ -1,6 +1,6 @@
 .contact-section {
   min-height: 70vh;
-  color: #e6f7f7;
+  color: var(--color-text-200);
   padding: 3rem 1.5rem;
 }
 
@@ -16,7 +16,7 @@
 .contact-form .title {
   font-size: 2rem;
   margin-bottom: 0.3rem;
-  color: #00ffee;
+  color: var(--color-accent);
 }
 
 .contact-form .subtitle {
@@ -34,11 +34,11 @@ form input,
 form textarea {
   width: 100%;
   padding: 0.8rem;
-  border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border-subtle);
   background: rgba(255,255,255,0.02);
-  color: #e6f7f7;
-    transition: border 0.3s ease, box-shadow 0.3s ease;
+  color: var(--color-text-200);
+  transition: var(--ds-transition-base);
 }
 
 form input.ng-touched.ng-invalid,form textarea.ng-touched.ng-invalid{
@@ -57,28 +57,28 @@ form textarea::placeholder {
 }
 
 .actions button {
-  background: linear-gradient(90deg,#00ffee 0%, #00d6d6 100%);
+  background: linear-gradient(90deg, var(--color-accent) 0%, var(--color-accent-strong) 100%);
   color: #071616;
   border: none;
   padding: 0.7rem 1.2rem;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  font-weight: 600;
+  font-weight: var(--fw-semibold);
 }
 
 .actions .status {
-  color: rgba(0,255,238,0.9);
+  color: rgba(var(--ds-color-accent-rgb), 0.9);
   font-size: 0.95rem;
 }
 
 .contact-3d {
   width: 100%;
   height: 420px;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   overflow: hidden;
    backdrop-filter: blur(12px);
-  background: rgba(0, 255, 238, 0.05);
-  border: 1px solid rgba(0, 255, 238, 0.2);
+  background: rgba(var(--ds-color-accent-rgb), 0.05);
+  border: 1px solid rgba(var(--ds-color-accent-rgb), 0.2);
 }
 
 .contact-3d canvas {
@@ -101,8 +101,8 @@ form textarea::placeholder {
 }
 .error-message {
   display: block;
-  color: #ff4757;
-  font-size: 12px;
+  color: var(--color-danger);
+  font-size: var(--fs-xs);
   margin-top: 4px;
   min-height: 16px;
 }

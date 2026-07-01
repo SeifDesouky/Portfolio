@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { GlobalService } from '../../../../services/global.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { ServiceFormValue, ServiceRequest } from '../../../../models/portfolio.models';
 
 @Component({
   selector: 'app-add-service',
@@ -22,21 +23,23 @@ export class AddServiceComponent {
 
   onSubmit() {
     if (this.serviceForm.valid) {
-      const data = this.serviceForm.value;
-      if (data.bullets) {
-        data.bullets = (data.bullets as string)
-          .split(',')
-          .map(b => b.trim());
-      }
-
-      this.global.createService(data).subscribe({
-        next: (res) => {
+      const data = this.serviceForm.getRawValue() as ServiceFormValue;
+      const payload: ServiceRequest = {
+        title: data.title,
+        tagline: data.tagline,
+        bullets: data.bullets
+          ? data.bullets.split(',').map((b) => b.trim())
+          : [],
+        icon: data.icon,
+        cta: data.cta,
+      };
+      this.global.createService(payload).subscribe({
+        next: () => {
           this.toastr.success('Service added successfully!', 'Success');
           this.serviceForm.reset();
         },
-        error: (err) => {
+        error: () => {
           this.toastr.error('Failed to add service. Try again.', 'Error');
-          console.error(err);
         }
       });
     } else {

@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { GlobalService } from '../../../../services/global.service';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from '../../../../../environments/environment';
+import { ProjectEditFormValue, ProjectEntry, ProjectRequest } from '../../../../models/portfolio.models';
 
 @Component({
   selector: 'app-update-project',
@@ -10,11 +12,13 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './update-project.component.css'
 })
 export class UpdateProjectComponent {
-    projectsList: any[] = [];
+    projectsList: ProjectEntry[] = [];
   isEditModalOpen = false;
   projectForm!: FormGroup;
   selectedId: string = '';
-  projectImg = 'http://localhost:3000/projectImg/';
+  projectImg = `${environment.mediaUrl}/projectImg/`;
+  private previouslyFocusedElement: HTMLElement | null = null;
+  @ViewChild('closeButton') closeButton?: ElementRef<HTMLButtonElement>;
   constructor(private global: GlobalService, private toaster: ToastrService) {}
 
   ngOnInit() {
@@ -22,7 +26,7 @@ export class UpdateProjectComponent {
   }
 
   loadProjects() {
-    this.global.getProjects().subscribe((res: any) => {
+    this.global.getProjects().subscribe((res) => {
       this.projectsList = res.data;
     });
   }
@@ -31,7 +35,8 @@ export class UpdateProjectComponent {
     return this.projectForm.get('technologies') as FormArray;
   }
 
-  openEditModal(project: any) {
+  openEditModal(project: ProjectEntry) {
+    this.previouslyFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     this.projectForm = new FormGroup({
       number: new FormControl(project.number, Validators.required),
       title: new FormControl(project.title, Validators.required),
@@ -45,12 +50,22 @@ export class UpdateProjectComponent {
 
     this.selectedId = project._id;
     this.isEditModalOpen = true;
+    queueMicrotask(() => this.closeButton?.nativeElement.focus());
   }
 
   onUpdate() {
     if (this.projectForm.invalid) return;
-    this.global.updateProject(this.projectForm.value, this.selectedId).subscribe({
-      next: (res: any) => {
+    const formValue = this.projectForm.getRawValue() as ProjectEditFormValue;
+    const payload: ProjectRequest = {
+      number: formValue.number,
+      title: formValue.title,
+      description: formValue.description,
+      technologies: formValue.technologies.map((technology) => technology.trim()).filter(Boolean),
+      viewProject: formValue.viewProject,
+      openProject: formValue.openProject,
+    };
+    this.global.updateProject(payload, this.selectedId).subscribe({
+      next: (res) => {
         this.toaster.success(res.message);
         this.isEditModalOpen = false;
         this.loadProjects();
@@ -63,6 +78,7 @@ export class UpdateProjectComponent {
 
   closeEditModal() {
     this.isEditModalOpen = false;
+    queueMicrotask(() => this.previouslyFocusedElement?.focus());
   }
 
   deleteProject(id: string) {
@@ -75,5 +91,12 @@ export class UpdateProjectComponent {
         this.toaster.error('Error deleting project');
       }
     });
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscapeKey() {
+    if (this.isEditModalOpen) {
+      this.closeEditModal();
+    }
   }
 }

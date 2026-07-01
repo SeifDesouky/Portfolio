@@ -2,26 +2,26 @@
 .dashboard-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 300px));
-  gap: 24px;
+  gap: var(--space-6);
   justify-content: center;
   margin-top: 3em;
   perspective: 1000px;
 }
 
 .card {
-  border-radius: 20px;
-  padding: 24px;
-  background: rgba(19, 19, 19, 0.8);
-  border: 1px solid rgba(0, 255, 238, 0.3);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  background: var(--color-surface-overlay);
+  border: 1px solid var(--color-accent-border);
   backdrop-filter: blur(10px);
-  box-shadow: 0 4px 20px rgba(0, 255, 238, 0.15);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--ds-duration-fast) var(--ds-ease-standard), box-shadow var(--ds-duration-fast) var(--ds-ease-standard);
   position: relative;
   overflow: hidden;
   will-change: transform;
   transform-style: preserve-3d;
   cursor: pointer;
-  animation: slideIn 0.8s ease forwards;
+  animation: slideIn var(--ds-duration-xl) var(--ds-ease-standard) forwards;
 }
 
 .spotlight {
@@ -32,31 +32,31 @@
 }
 
 .card-header h3 {
-  font-size: 20px;
-  font-weight: 600;
-  color: #00ffee;
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-semibold);
+  color: var(--color-accent);
 }
 
 .stat-number {
-  font-size: 48px;
-  font-weight: bold;
-  margin-bottom: 8px;
-  color: #00ffee;
+  font-size: var(--fs-5xl);
+  font-weight: var(--fw-bold);
+  margin-bottom: var(--space-2);
+  color: var(--color-accent);
 }
 
 .stat-label {
   font-size: 1.2em;
-  color: #ccc;
+  color: var(--color-text-muted);
 }
 
 .from-left {
   transform: translateX(-150%);
-  animation: fromLeft 0.8s ease forwards;
+  animation: fromLeft var(--ds-duration-xl) var(--ds-ease-standard) forwards;
 }
 
 .from-right {
   transform: translateX(150%);
-  animation: fromRight 0.8s ease forwards;
+  animation: fromRight var(--ds-duration-xl) var(--ds-ease-standard) forwards;
 }
 
 @keyframes fromLeft {
@@ -70,4 +70,3 @@
     transform: translateX(0);
   }
 }
-

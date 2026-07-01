@@ -30,14 +30,25 @@ const addHomeContent = async (req, res) => {
             instagram,
             facebook
         } = req.body;
-        const cv = req.files?.cv?.[0].filename;
-        const profileImg = req.files?.profileImg?.[0].filename;
+        const cv = req.files?.cv?.[0]?.filename;
+        const profileImg = req.files?.profileImg?.[0]?.filename;
+        const parsedRoles = (() => {
+            if (!roles) return [];
+            if (Array.isArray(roles)) return roles;
+            if (typeof roles !== 'string' || !roles.trim()) return [];
+
+            try {
+                return JSON.parse(roles);
+            } catch {
+                return [];
+            }
+        })();
         const content = new Home({
             logo,
             title,
             subTitle,
             description,
-            roles: roles ? JSON.parse(roles) : [],
+            roles: parsedRoles,
             profileImg,
             cv,
             linkdin,

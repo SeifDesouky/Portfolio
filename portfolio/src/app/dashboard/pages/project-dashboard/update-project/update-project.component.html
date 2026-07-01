@@ -1,6 +1,6 @@
 <div class="dashboard-grid">
-  <div class="card from-left overall-info" *ngFor="let p of projectsList">
-    <img class="project-thumbnail" [src]="projectImg + p.projectImg" alt="{{ p.title }}" />
+  <div class="card from-left overall-info" *ngFor="let p of projectsList" [attr.aria-label]="p.title + ' project record'">
+    <img class="project-thumbnail" [src]="projectImg + p.projectImg" [alt]="p.title" />
 
     <div class="card-header">
       <h3>{{ p.title }}</h3>
@@ -14,15 +14,15 @@
     </div>
 
     <div class="project-links" *ngIf="p.viewProject || p.openProject">
-      <a *ngIf="p.viewProject" [href]="p.viewProject" target="_blank" class="view">View</a>
-      <a *ngIf="p.openProject" [href]="p.openProject" target="_blank" class="open">Open</a>
+      <a *ngIf="p.viewProject" [href]="p.viewProject" target="_blank" rel="noopener noreferrer" class="view" [attr.aria-label]="'Open live project for ' + p.title">View</a>
+      <a *ngIf="p.openProject" [href]="p.openProject" target="_blank" rel="noopener noreferrer" class="open" [attr.aria-label]="'Open source or secondary link for ' + p.title">Open</a>
     </div>
 
     <div class="card-actions">
-      <button (click)="openEditModal(p)" class="btn btn-edit">
+      <button type="button" (click)="openEditModal(p)" class="btn btn-edit" [attr.aria-label]="'Edit ' + p.title">
         <i class="fa-solid fa-pen"></i> Edit
       </button>
-      <button (click)="deleteProject(p._id)" class="btn btn-delete">
+      <button type="button" (click)="deleteProject(p._id)" class="btn btn-delete" [attr.aria-label]="'Delete ' + p.title">
         <i class="fa-solid fa-trash"></i> Delete
       </button>
     </div>
@@ -31,45 +31,46 @@
 
 
 <div class="custom-modal-backdrop" *ngIf="isEditModalOpen && projectForm">
-  <div class="custom-modal" role="dialog" aria-modal="true">
+  <div class="custom-modal" role="dialog" aria-modal="true" aria-labelledby="project-edit-title">
     <div class="modal-header">
-      <h3>Edit Project</h3>
-      <button class="close-btn" (click)="closeEditModal()">×</button>
+      <h3 id="project-edit-title">Edit Project</h3>
+      <button type="button" class="close-btn" (click)="closeEditModal()" #closeButton aria-label="Close edit dialog">×</button>
     </div>
 
     @if(projectForm){<form [formGroup]="projectForm" (ngSubmit)="onUpdate()">
       <div class="form-group">
-        <label>Number</label>
-        <input type="number" formControlName="number" placeholder="Enter project number">
+        <label for="project-number">Number</label>
+        <input id="project-number" type="number" formControlName="number" placeholder="Enter project number" />
       </div>
 
       <div class="form-group">
-        <label>Title</label>
-        <input type="text" formControlName="title" placeholder="Enter project title">
+        <label for="project-title">Title</label>
+        <input id="project-title" type="text" formControlName="title" placeholder="Enter project title" />
       </div>
 
       <div class="form-group">
-        <label>Description</label>
-        <textarea formControlName="description" placeholder="Enter project description"></textarea>
+        <label for="project-description">Description</label>
+        <textarea id="project-description" formControlName="description" placeholder="Enter project description"></textarea>
       </div>
 
       <div class="form-group">
         <label>Technologies</label>
         <div formArrayName="technologies">
           <div *ngFor="let tech of technologiesArray.controls; let i=index" class="form-group">
-            <input [formControlName]="i" placeholder="Technology name">
+            <label class="sr-only" [attr.for]="'project-tech-' + i">Technology {{ i + 1 }}</label>
+            <input [id]="'project-tech-' + i" [formControlName]="i" placeholder="Technology name" />
           </div>
         </div>
       </div>
 
       <div class="form-group">
-        <label>View Project Link</label>
-        <input type="text" formControlName="viewProject" placeholder="Enter view link">
+        <label for="project-view-link">View Project Link</label>
+        <input id="project-view-link" type="url" formControlName="viewProject" placeholder="Enter view link" />
       </div>
 
       <div class="form-group">
-        <label>Open Project Link</label>
-        <input type="text" formControlName="openProject" placeholder="Enter open link">
+        <label for="project-open-link">Open Project Link</label>
+        <input id="project-open-link" type="url" formControlName="openProject" placeholder="Enter open link" />
       </div>
 
       <div class="modal-actions">
@@ -79,6 +80,6 @@
     </form>}
   </div>
 </div>
-<div class="form-actions" routerLink="/dashboard/project-dashboard">
-    <button type="submit" class="btn1 btn-primary"><i class="fa-solid fa-arrow-left"></i> Back</button>
-</div>
+<a class="form-actions btn1 btn-primary" routerLink="/dashboard/project-dashboard" aria-label="Back to project dashboard">
+  <i class="fa-solid fa-arrow-left"></i> Back
+</a>

@@ -5,33 +5,30 @@
       <p class="subtitle">Got a project or question? Let's talk.</p>
 
       <form (ngSubmit)="onSubmit()" [formGroup]="myForm" novalidate>
-        <label>
-         <input formControlName="name" [ngClass]="{'error-border': (f['name'].invalid && (f['name'].touched || isSubmitted))}" placeholder="Name"/>
+        <label for="contact-name">Name</label>
+         <input id="contact-name" formControlName="name" [ngClass]="{'error-border': (f['name'].invalid && (f['name'].touched || isSubmitted))}" placeholder="Name" autocomplete="name" aria-describedby="contact-name-error" [attr.aria-invalid]="f['name'].invalid && (f['name'].touched || isSubmitted)"/>
 
-          <div *ngIf="(f['name'].invalid && f['name'].touched) || (f['name'].invalid && isSubmitted)">
+          <div id="contact-name-error" *ngIf="(f['name'].invalid && f['name'].touched) || (f['name'].invalid && isSubmitted)">
               <span class="error-message" *ngIf="f['name'].errors?.['required']">Name is required</span>
             </div>
-        </label>
 
-        <label>
-          <input name="email" formControlName="email" placeholder="Email" [ngClass]="{'error-border': (f['email'].invalid && f['email'].touched)|| (f['email'].invalid && isSubmitted)}"/>
-          <div *ngIf="(f['email']?.invalid && f['email']?.touched) || (f['email']?.invalid && isSubmitted)">
+        <label for="contact-email">Email</label>
+          <input id="contact-email" name="email" type="email" formControlName="email" placeholder="Email" autocomplete="email" [ngClass]="{'error-border': (f['email'].invalid && f['email'].touched)|| (f['email'].invalid && isSubmitted)}" aria-describedby="contact-email-error" [attr.aria-invalid]="f['email'].invalid && (f['email'].touched || isSubmitted)"/>
+          <div id="contact-email-error" *ngIf="(f['email']?.invalid && f['email']?.touched) || (f['email']?.invalid && isSubmitted)">
               <span class="error-message" *ngIf="f['email']?.errors?.['required']">Email is required</span>
               <span class="error-message" *ngIf="f['email']?.errors?.['pattern']">Invalid Email</span>
             </div>
-        </label>
 
-        <label>
-          <textarea name="message" formControlName="msg" rows="5" placeholder="Message" [ngClass]="{'error-border': (f['msg'].invalid && f['msg'].touched)|| (f['msg'].invalid && isSubmitted)}"></textarea>
+        <label for="contact-message">Message</label>
+          <textarea id="contact-message" name="message" formControlName="msg" rows="5" placeholder="Message" [ngClass]="{'error-border': (f['msg'].invalid && f['msg'].touched)|| (f['msg'].invalid && isSubmitted)}" aria-describedby="contact-message-error" [attr.aria-invalid]="f['msg'].invalid && (f['msg'].touched || isSubmitted)"></textarea>
 
-          <div *ngIf="(f['msg']?.invalid && f['msg']?.touched) || (f['msg']?.invalid && isSubmitted)">
+          <div id="contact-message-error" *ngIf="(f['msg']?.invalid && f['msg']?.touched) || (f['msg']?.invalid && isSubmitted)">
               <span class="error-message" *ngIf="f['msg']?.errors?.['required']">Message is required</span>
 
             </div>
-        </label>
 
         <div class="actions">
-          <button class="btn btn-primary"> Send</button>
+          <button type="submit" class="btn btn-primary">Send</button>
         </div>
       </form>
     </div>

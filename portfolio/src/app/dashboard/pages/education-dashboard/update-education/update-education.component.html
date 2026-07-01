@@ -2,6 +2,7 @@
   <div
     class="card from-left overall-info"
     *ngFor="let edu of educationList; let i = index"
+    [attr.aria-label]="edu.title + ' education record'"
   >
     <div class="card-header">
       <h3>{{ edu.title }}</h3>
@@ -11,10 +12,10 @@
       <div class="stat-label">{{ edu.description }}</div>
     </div>
     <div class="card-actions">
-      <button (click)="openEditModal(edu); $event.stopPropagation()" class="btn btn-edit">
+      <button type="button" (click)="openEditModal(edu); $event.stopPropagation()" class="btn btn-edit" [attr.aria-label]="'Edit ' + edu.title">
         <i class="fa-solid fa-pen"></i> Edit
       </button>
-      <button (click)="softDeleteEducation(edu._id); $event.stopPropagation()" class="btn btn-delete">
+      <button type="button" (click)="softDeleteEducation(edu._id); $event.stopPropagation()" class="btn btn-delete" [attr.aria-label]="'Delete ' + edu.title">
         <i class="fa-solid fa-trash"></i> Delete
       </button>
     </div>
@@ -22,34 +23,34 @@
 </div>
 
 <div class="custom-modal-backdrop" *ngIf="isEditModalOpen && eduForm">
-  <div class="custom-modal" role="dialog" aria-modal="true">
+  <div class="custom-modal" role="dialog" aria-modal="true" aria-labelledby="education-edit-title">
     <div class="modal-header">
-      <h3>Edit Education</h3>
-      <button class="close-btn" (click)="closeEditModal()">×</button>
+      <h3 id="education-edit-title">Edit Education</h3>
+      <button type="button" class="close-btn" (click)="closeEditModal()" #closeButton aria-label="Close edit dialog">×</button>
     </div>
 
     <form [formGroup]="eduForm" (ngSubmit)="onUpdate()">
       <div class="form-group">
-        <label>Date</label>
-        <input type="text" formControlName="date" placeholder="YYYY" />
-        <div class="text-danger" *ngIf="eduForm.get('date')?.invalid && eduForm.get('date')?.touched">
+        <label for="education-date">Date</label>
+        <input id="education-date" type="text" formControlName="date" placeholder="YYYY" aria-describedby="education-date-error" [attr.aria-invalid]="eduForm.get('date')?.invalid && (eduForm.get('date')?.touched || isSubmitted)" />
+        <div class="text-danger" id="education-date-error" *ngIf="eduForm.get('date')?.invalid && (eduForm.get('date')?.touched || isSubmitted)">
           <small *ngIf="eduForm.get('date')?.errors?.['required']">Date required</small>
           <small *ngIf="eduForm.get('date')?.errors?.['pattern']">YYYY</small>
         </div>
       </div>
 
       <div class="form-group">
-        <label>Title</label>
-        <input type="text" formControlName="title" placeholder="Enter title" />
-        <div class="text-danger" *ngIf="eduForm.get('title')?.invalid && eduForm.get('title')?.touched">
+        <label for="education-title">Title</label>
+        <input id="education-title" type="text" formControlName="title" placeholder="Enter title" aria-describedby="education-title-error" [attr.aria-invalid]="eduForm.get('title')?.invalid && (eduForm.get('title')?.touched || isSubmitted)" />
+        <div class="text-danger" id="education-title-error" *ngIf="eduForm.get('title')?.invalid && (eduForm.get('title')?.touched || isSubmitted)">
           <small *ngIf="eduForm.get('title')?.errors?.['minlength']">Min 3 chars</small>
         </div>
       </div>
 
       <div class="form-group">
-        <label>Description</label>
-        <textarea formControlName="description" placeholder="Enter description"></textarea>
-        <div class="text-danger" *ngIf="eduForm.get('description')?.invalid && eduForm.get('description')?.touched">
+        <label for="education-description">Description</label>
+        <textarea id="education-description" formControlName="description" placeholder="Enter description" aria-describedby="education-description-error" [attr.aria-invalid]="eduForm.get('description')?.invalid && (eduForm.get('description')?.touched || isSubmitted)"></textarea>
+        <div class="text-danger" id="education-description-error" *ngIf="eduForm.get('description')?.invalid && (eduForm.get('description')?.touched || isSubmitted)">
           <small *ngIf="eduForm.get('description')?.errors?.['minlength']">Min 5 chars</small>
         </div>
       </div>
@@ -62,6 +63,6 @@
   </div>
 </div>
 
-<div class="form-actions" routerLink="/dashboard/education-dashboard">
-    <button type="submit" class="btn1 btn-primary"><i class="fa-solid fa-arrow-left"></i> Back</button>
-</div>
+<a class="form-actions btn1 btn-primary" routerLink="/dashboard/education-dashboard" aria-label="Back to education dashboard">
+  <i class="fa-solid fa-arrow-left"></i> Back
+</a>

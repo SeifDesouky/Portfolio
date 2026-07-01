@@ -21,7 +21,11 @@ const createCategory= async (req, res) => {
         const { category, skill } = req.body;
         const newSkill = new Skills({ category, skill });
         await newSkill.save();
-        res.status(201).json({data : newSkill,message:"skill add successfully",count:newSkill.length})
+        res.status(201).json({
+            data: newSkill,
+            message: "skill add successfully",
+            count: Array.isArray(newSkill.skill) ? newSkill.skill.length : 0
+        })
     } catch (err) {
         res.status(500).json({error:err.message})
     } 
@@ -56,13 +60,13 @@ const updateSkill = async (req, res) => {
         const { category, skill } = req.body;
        
         const updatedSkill = await Skills.findById(id)
-        if (updateSkill) {
-            updatedSkill.category = category;
-            updatedSkill.skill = skill;
-            
-            await updatedSkill.save()
-            res.status(201).json({message:"skill updated successfully",data:updateSkill})
-        }
+        if (!updatedSkill) return res.status(404).json({ message: "Category not found" });
+
+        updatedSkill.category = category;
+        updatedSkill.skill = skill;
+
+        await updatedSkill.save()
+        res.status(200).json({message:"skill updated successfully",data:updatedSkill})
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: err.message });

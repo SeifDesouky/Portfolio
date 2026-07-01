@@ -1,5 +1,7 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { GlobalService } from '../../../services/global.service';
+import { EducationEntry } from '../../../models/portfolio.models';
 
 @Component({
   selector: 'app-education',
@@ -8,9 +10,16 @@ import { GlobalService } from '../../../services/global.service';
   styleUrl: './education.component.css'
 })
 export class EducationComponent {
-   education: any = [];
+   education: EducationEntry[] = [];
+   @ViewChildren('timelineItem', { read: ElementRef }) timelineItems!: QueryList<ElementRef<HTMLElement>>;
+   private timelineObserver?: IntersectionObserver;
+   private timelineChangesSub?: Subscription;
 
-  constructor(public global: GlobalService, private el: ElementRef) {}
+  constructor(public global: GlobalService) {}
+
+  trackByIndex(index: number): number {
+    return index;
+  }
 
   ngOnInit() {
     this.global.getEducation().subscribe(res => {
@@ -19,24 +28,30 @@ export class EducationComponent {
   }
 
   ngAfterViewInit() {
-    setTimeout(() => this.observeTimelineItems(), 1000);
-  }
-
-  observeTimelineItems() {
-    const items = this.el.nativeElement.querySelectorAll('.timeline-item');
-
-    const observer = new IntersectionObserver(
+    this.timelineObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('show');
-            observer.unobserve(entry.target);
+            this.timelineObserver?.unobserve(entry.target);
           }
         });
       },
       { threshold: 0.2 }
     );
 
-    items.forEach((item: any) => observer.observe(item));
+    this.timelineChangesSub = this.timelineItems.changes.subscribe(() => this.observeTimelineItems());
+    this.observeTimelineItems();
+  }
+
+  observeTimelineItems() {
+    if (!this.timelineObserver) return;
+
+    this.timelineItems?.forEach((item) => this.timelineObserver?.observe(item.nativeElement));
+  }
+
+  ngOnDestroy() {
+    this.timelineChangesSub?.unsubscribe();
+    this.timelineObserver?.disconnect();
   }
 }

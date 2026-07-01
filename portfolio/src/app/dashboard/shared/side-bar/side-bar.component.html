@@ -3,21 +3,27 @@
       <h2>Admin Dashboard</h2>
     </div>
 
-    <nav class="sidebar-nav">
+    <nav class="sidebar-nav" aria-label="Dashboard sections">
       <ul class="nav-menu">
-        <li *ngFor="let item of menuItems"
+        <li *ngFor="let item of menuItems; trackBy: trackByIndex">
+          <a
             class="nav-item"
             [class.active]="item.active"
-            (click)="onMenuClick(item)" [routerLink]="item.route">
-          <span class="material-icons">{{item.icon}}</span>
-          <span class="nav-text">{{item.name}}</span>
+            (click)="onMenuClick(item)"
+            [routerLink]="item.route"
+            [attr.aria-current]="item.active ? 'page' : null"
+            [attr.aria-label]="item.name + ' section'"
+          >
+            <span class="material-icons" aria-hidden="true">{{item.icon}}</span>
+            <span class="nav-text">{{item.name}}</span>
+          </a>
         </li>
       </ul>
     </nav>
     <div class="sidebar-footer">
-      <div class="settings-item">
-        <span class="material-icons">settings</span>
+      <button type="button" class="settings-item" aria-label="Open settings">
+        <span class="material-icons" aria-hidden="true">settings</span>
         <span>Setting</span>
-      </div>
+      </button>
     </div>
   </aside>
